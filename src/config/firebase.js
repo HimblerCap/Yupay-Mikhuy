@@ -5,7 +5,13 @@ import 'firebase/firestore';
 import 'firebase/messaging';
 
 const firebaseConfig = {
- //Llenar con el codigo uwu
+  apiKey: "AIzaSyBqTyH74qRPurMFm0rMDLCJFPZYblUIaXg",
+  authDomain: "yupay-mikhuy.firebaseapp.com",
+  projectId: "yupay-mikhuy",
+  storageBucket: "yupay-mikhuy.appspot.com",
+  messagingSenderId: "107020343756",
+  appId: "1:107020343756:web:27352a0c4543e77e166569",
+  measurementId: "G-DL6ZB9YBQ8"
 };
 
 firebase.initializeApp(firebaseConfig);
