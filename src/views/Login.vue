@@ -45,6 +45,7 @@ export default {
     login() {
       var self = this;
       self.loading = true;
+      console.log(self.email, self.password)
       firebase.auth
         .signInWithEmailAndPassword(self.email, self.password)
         .then((user) => {
