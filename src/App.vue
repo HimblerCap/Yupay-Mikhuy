@@ -1,6 +1,9 @@
 <template>
   <v-app>
-    <Login/>
+    <!-- v-if="$route.meta.requiresAuth" -->
+    <Toolbar />
+    <Drawer />
+    <BootomNav />
     <Views/>
   </v-app>
 </template>
@@ -9,8 +12,10 @@
 export default {
   name: "Yupay Mikhuy",
   components: {
+    Toolbar: ()=>import('@/components/core/Toolbar'),
+    Drawer: ()=>import('@/components/core/Drawe'),
+    BootomNav: ()=>import('@/components/core/BottomNav'),
     Views:()=>import('@/components/core/Views'),
-    Login:()=>import('@/views/Login.vue')
   },
 };
 </script>
