@@ -1,7 +1,8 @@
 <template>
   <v-app>
     <!-- v-if="$route.meta.requiresAuth" -->
-    <Views />
+    <Toolbar v-if="$route.meta.requiresAuth"/>
+    <Views v-else/>
   </v-app>
 </template>
 
@@ -10,6 +11,7 @@ export default {
   name: "Yupay Mikhuy",
   components: {
     Views:()=>import('@/components/core/Views'),
+    Toolbar: ()=>import('@/components/core/Toolbar'),
   },
 };
 </script>
