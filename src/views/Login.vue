@@ -67,11 +67,11 @@ export default {
     login() {
       var self = this;
       self.loading = true;
-      console.log(self.email, self.password)
       firebase.auth
         .signInWithEmailAndPassword(self.email, self.password)
         .then((user) => {
-          
+          console.log(user)
+          this.$router.replace('/')
         })
         .catch(e => {
           self.loading = false;

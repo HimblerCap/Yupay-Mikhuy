@@ -6,7 +6,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    items: [
+    drawer: true,
+    isloggedin: false,
+    role: "",
+    generalConfig:{
+      email: '',
+      name: ''
+    },
+    items: [{
+      text: 'Home',
+      to:'/home',
+    }
     ],
   
   },
@@ -27,4 +37,4 @@ export default new Vuex.Store({
   modules: {},
   actions: {}
 
-})
+});
