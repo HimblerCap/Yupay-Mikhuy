@@ -4,22 +4,22 @@
         <!-- Desktop -->
         <span class="bg"></span>
         <v-row align="center" justify="center" class="d-none d-sm-block" >
-          <v-col md="8" lg="10" offset-md="1" sm="12" class="py-5" style="max-width:1300px;margin-left:auto;margin-right:auto"> 
-            <v-container fluid class="ma-0 pa-0 elevation-1 mt-5">
+          <v-col lg="5" offset-md="1" class="py-5" style="max-width:1300px;margin-left:auto;margin-right:auto"> 
+            <v-container fluid class="fill-height ma-0 pa-0">
               <v-row align="center" justify="center">
                 <v-col cols="12" sm="8" md="8">
                   <v-card>
                     <v-row align="center" justify="center" class="ma-0 pa-0">
-                      <v-col cols="12" md="6" lg="5" class="pa-0">
-                        <v-card color="#EEC373" class="pa-4" flat>
+                      <v-col cols="12" md="6" class="pa-0">
+                        <v-card align="center" justify="center" min-height="600px" color="#EEC373" class="fix" flat>
                           <v-img 
-                          class="pt-4 ma-10"
+                          width="300px"
                           src="https://i.imgur.com/GaaTYIJ.png"
                           ></v-img>
                         </v-card>
                       </v-col>
-                      <v-col cols="12" md="6" lg="5" sm="8" class="pa-0"> 
-                        <v-card color="#FFF1BD" class="pa-4" flat>
+                      <v-col cols="12" md="6" class="pa-0"> 
+                        <v-card color="#FFF1BD" min-height="600px" class="pa-4" flat>
                           <v-img 
                             class="pt-4 ma-10"
                             src="https://i.imgur.com/AkWPSNz.png"
@@ -67,11 +67,11 @@ export default {
     login() {
       var self = this;
       self.loading = true;
+      console.log(self.email, self.password)
       firebase.auth
         .signInWithEmailAndPassword(self.email, self.password)
         .then((user) => {
-          console.log(user)
-          this.$router.replace('/')
+          
         })
         .catch(e => {
           self.loading = false;
@@ -100,8 +100,11 @@ export default {
     -webkit-filter:blur(6px);
   }
   .field {
-    margin: 2px 25px 4px 25px !important;
-    padding: 3px !important;
+    margin: 2px 10px 4px 10px !important;
+    padding: 2px !important;
+  }
+  .fix {
+    padding: 130px 0px 0px 0px !important;
   }
 </style>
 
