@@ -49,7 +49,7 @@ router.beforeEach((to, from, next) => {
     if (firebase.auth.currentUser) {
       next();
     } else {
-      next('login');
+      next({ name: 'Login'});
     }
   } else if (firebase.auth.currentUser && to.name == "Login") {
     next("/");
