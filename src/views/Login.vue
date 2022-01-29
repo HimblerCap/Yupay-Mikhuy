@@ -13,7 +13,7 @@
                       <v-col cols="12" md="6" class="pa-0">
                         <v-card align="center" justify="center" min-height="600px" color="#EEC373" class="fix" flat>
                           <v-img 
-                          width="300px"
+                          width="270px"
                           src="https://i.imgur.com/GaaTYIJ.png"
                           ></v-img>
                         </v-card>
@@ -104,7 +104,7 @@ export default {
     padding: 2px !important;
   }
   .fix {
-    padding: 130px 0px 0px 0px !important;
+    padding: 130px 10px 0px 10px !important;
   }
 </style>
 
