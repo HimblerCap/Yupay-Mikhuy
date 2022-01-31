@@ -13,9 +13,38 @@ export default new Vuex.Store({
       email: '',
       name: ''
     },
+    keysandsecurity:{
+      meetup:''
+    },
     items: [{
       text: 'Home',
       to:'/home',
+      icon: 'mdi-home',
+    },
+    {
+      text: 'Compras',
+      to:"/compras",
+      icon: '',
+    },
+    {
+      text: 'Recetas',
+      to:'/recetas',
+      icon: ''
+    },
+    {
+      text: 'Alimentos',
+      to:'/alimentos',
+      icon: ''
+    },
+    {
+      text: 'Config',
+      to: '/config',
+      icon: '',
+    },
+    {
+      text: 'Profile',
+      to: '/profile',
+      icon: ''
     }
     ],
   

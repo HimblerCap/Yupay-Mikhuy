@@ -1,5 +1,5 @@
 <template>
-  <p style="font-size:35px">ALVVVVVVVVVV</p>
+    <p> Hola </p>
 </template>
 
 <script>
