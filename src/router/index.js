@@ -90,7 +90,7 @@ const routes = [{
     component: ()=>import(/*  webpackChunkName: "Profile" */ '@/views/Profile'),
     meta: {
       requiresAuth: true,
-      title: "Home",
+      title: "Profile",
       bottomVisible:true
     }
   }

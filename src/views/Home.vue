@@ -1,5 +1,5 @@
 <template>
-    <p> Hola </p>
+    <p>Hola :3</p>
 </template>
 
 <script>
