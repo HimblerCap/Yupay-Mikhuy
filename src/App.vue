@@ -2,6 +2,7 @@
   <v-app>
     <!-- v-if="$route.meta.requiresAuth" -->
     <Toolbar v-if="$route.meta.requiresAuth"/>
+    
     <Views v-else/>
   </v-app>
 </template>
