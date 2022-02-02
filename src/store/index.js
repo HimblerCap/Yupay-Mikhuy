@@ -24,27 +24,27 @@ export default new Vuex.Store({
     {
       text: 'Compras',
       to:"/compras",
-      icon: '',
+      icon: 'kitchen',
     },
     {
       text: 'Recetas',
       to:'/recetas',
-      icon: ''
+      icon: 'receipt'
     },
     {
       text: 'Alimentos',
       to:'/alimentos',
-      icon: ''
+      icon: 'restaurant_menu'
     },
     {
       text: 'Config',
       to: '/config',
-      icon: '',
+      icon: 'settings',
     },
     {
       text: 'Profile',
       to: '/profile',
-      icon: ''
+      icon: 'logout'
     }
     ],
   

@@ -68,10 +68,11 @@
                   <v-list-item-icon>
                     <v-icon v-text="link.icon"></v-icon>
                   </v-list-item-icon>
-                  <br>
+                  <br/>
                   <v-list-item-content>
                   <v-list-item-title v-text="link.text" />
                   </v-list-item-content>
+
                 </v-list-item>
               </v-list>
             </v-navigation-drawer>
