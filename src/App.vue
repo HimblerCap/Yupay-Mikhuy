@@ -3,7 +3,7 @@
     <!-- v-if="$route.meta.requiresAuth" -->
     <Drawer  v-if="$route.meta.requiresAuth"/>
     <Toolbar v-if="$route.meta.requiresAuth"/>
-    <Views v-if="$route.meta.requiresAuth"/>
+    <Views />
   </v-app>
 </template>
 

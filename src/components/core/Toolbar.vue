@@ -1,113 +1,46 @@
 <template>
-  <v-div>
-    <v-app-bar app fixed clipped-left color="#ffffdf" elevation="0" height="70px">
-        <div>
-            <v-card 
-              color="#FFDA97"
-              rounded="10px"
-              elevation="0">
-                <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-            </v-card>
-        </div>
-
-        <div style="margin: 0 0 0 20px">
-          <v-img
-            max-width="180px"
-            src="https://i.imgur.com/TTiKXEg.png">  
-          </v-img>
-        </div>
-
-        <v-spacer></v-spacer>
-
-        <div>
-          <v-card width="210px" outlined class="fix-toolbar">
-            <v-container fluid>
-              <v-list-item two-line style="margin-top: -20px">
-              <v-card style="border-radius: 8px" flat>
-                <v-img
+<v-div>
+  <v-navigation-drawer
+      absolute
+      permanent
+      right
+      width="350"
+    >
+      <template v-slot:prepend>
+        <v-list-item two-line>
+          <v-list-item-avatar>
+            <v-img
                   height="40px"
                   max-width="40px"
-                  src="https://i.imgur.com/i4IsveJ.jpg">  
+                  src="https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2.0,f_auto,g_center,h_250,q_auto:good,w_250/v1/gcs/platform-data-dsc/avatars/gengis_rafael_gutierrez_chiara.jpeg">  
                 </v-img>
-              </v-card>
+          </v-list-item-avatar>
 
-              <v-list-item-content class="pa-0" style="margin:0 0 0 10px">
-                <v-list-item-title>Jane Smith</v-list-item-title>
-                <v-list-item-subtitle>Logged In</v-list-item-subtitle>
-              </v-list-item-content>
-              </v-list-item>
-            </v-container>
-
-          </v-card>     
-       </div>
-
-    </v-app-bar>
-
-    <v-navigation-drawer
-      app
-      clipped
-      floating
-      v-model="drawer"
-      color="#ffffdf"
-      elevation="0"
-      width="210"
-    >
-    
-      <v-divider></v-divider>
-
-      <v-list rounded>
-        <v-list-item
-          v-for="(link, i) in links"
-          :key="i"
-          :to="link.to"
-          :href="link.href"
-          @click="onClick($event, link)"
-          class="google-font my-0 py-0"
-          color="#FFA500"
-        >
-          <v-row>
-            <v-list-item-icon>
-              <v-icon v-text="link.icon"></v-icon>
-            </v-list-item-icon>
-          </v-row>
-          <v-row>
-            <v-list-item-content>
-              <v-list-item-title v-text="link.text" />
-            </v-list-item-content>
-          </v-row>
+          <v-list-item-content>
+            <v-list-item-title>Gengis Fortachon</v-list-item-title>
+            <v-list-item-subtitle>Logged In</v-list-item-subtitle>
+          </v-list-item-content>
         </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+      </template>
 
-  </v-div>
+      <v-divider></v-divider>
+    </v-navigation-drawer>
+</v-div>
+  
 </template>
 <script>
-import { mapGetters, mapMutations} from "vuex"; 
+
+
 export default {
   name: "Toolbar",
   data () {
-    return {
-      drawer: null,
-    }
+     return {
+        items: [
+          { title: 'Home', icon: 'mdi-home-city' },
+          { title: 'My Account', icon: 'mdi-account' },
+          { title: 'Users', icon: 'mdi-account-group-outline' },
+        ],
+      }
   },
-  computed: {
-    ...mapGetters(["links"]),
-  },
-  methods: {
-    ...mapMutations(['setDrawer']),
-    onclick (e, item) {
-      e.stopPropagation()
-      this.$router.push(item.to)
-    }
-  }
 }
 </script>
-<style>
-  .fix-toolbar{
-    color: #f8f8f9;
-    margin:"2px 10px 2px 0px" !important;
-    max-height: 50px;
-    align-content: center;
-    border-radius: 10px !important;
-  }
-</style>

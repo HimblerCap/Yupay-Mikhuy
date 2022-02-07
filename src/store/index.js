@@ -36,22 +36,27 @@ export default new Vuex.Store({
       to:'/alimentos',
       icon: 'restaurant_menu'
     },
-    {
-      text: 'Config',
-      to: '/config',
-      icon: 'settings',
-    },
-    {
-      text: 'Profile',
-      to: '/profile',
-      icon: 'logout'
-    }
     ],
+    otherItems: [
+      {
+        text: 'Config',
+        to: '/config',
+        icon: 'settings',
+      },
+      {
+        text: 'Profile',
+        to: '/profile',
+        icon: 'logout'
+      }
+    ]
   
   },
   getters: {
     links: (state) => {
       return state.items
+    },
+    others: (state) => {
+      return state.otherItems
     }
   },
   mutations: {

@@ -1,7 +1,7 @@
 <template>
-<v-main style="padding-left: 7%">
+<v-main fluid style="margin-left: -10%">
   <v-container fluid>
-    <h1>Hola :3</h1>
+    <h1>Dashboard</h1>
   </v-container>
 </v-main>
    
