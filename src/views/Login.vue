@@ -13,7 +13,7 @@
                       <v-col cols="12" md="6" class="pa-0">
                         <v-card align="center" justify="center" min-height="600px" color="#EEC373" class="fix" flat>
                           <v-img 
-                          width="270px"
+                          max-width="270px"
                           src="https://i.imgur.com/GaaTYIJ.png"
                           ></v-img>
                         </v-card>
@@ -54,6 +54,8 @@
           </v-col>
         </v-row>
         
+        <!-- Desktop -->
+
         <!--Mobile-->
         <!--
         <v-container class ="hidden-sm-and-up">
@@ -132,7 +134,7 @@
             
         </v-container>
         
-
+        <!--Mobile-->
 
 
 
