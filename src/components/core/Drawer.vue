@@ -6,7 +6,7 @@
         position: absolute
         style="top:0px; max-height: 100%"
         v-model="drawer"
-        color="#FFF8E1"
+        color="#FAE475"
         :mini-variant.sync="mini"
         :right="$vuetify.rtl"
         width="260"    
@@ -43,7 +43,7 @@
             :href="link.href"
             @click="onClick($event, link)"
             class="google-font my-0 py-0"
-            color="#FFA500"
+            color="white"
             >
             <v-list-item-icon 
             class="pt-6 pb-6">
@@ -64,7 +64,7 @@
             :href="link.href"
             @click="onClick($event, link)"
             class="google-font my-0 py-0"
-            color="#FFA500"
+            color="white"
             >
             <v-list-item-icon class="pt-6 pb-6">
                 <v-icon color="#000">{{ link.icon }}</v-icon>

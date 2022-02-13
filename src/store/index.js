@@ -17,7 +17,7 @@ export default new Vuex.Store({
       meetup:''
     },
     items: [{
-      text: 'Home',
+      text: 'Inicio',
       to:'/home',
       icon: 'mdi-home',
     },
@@ -39,12 +39,12 @@ export default new Vuex.Store({
     ],
     otherItems: [
       {
-        text: 'Config',
+        text: 'Configuración',
         to: '/config',
         icon: 'settings',
       },
       {
-        text: 'Profile',
+        text: 'Perfil',
         to: '/profile',
         icon: 'logout'
       }

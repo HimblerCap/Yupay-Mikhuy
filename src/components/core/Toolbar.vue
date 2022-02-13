@@ -4,9 +4,10 @@
       absolute
       permanent
       right
-      width="350"
+      width="300"
+      color="#f1f4f6"
     >
-      <template v-slot:prepend>
+      <template v-slot:prepend class="google-font">
         <v-list-item two-line>
           <v-list-item-avatar>
             <v-img
@@ -24,6 +25,10 @@
       </template>
 
       <v-divider></v-divider>
+      <v-template class="google-font">
+        <v-list-item-title style="font-size: 15px;">Comidas que puedes preparar</v-list-item-title>
+      </v-template>
+
     </v-navigation-drawer>
 </v-div>
   

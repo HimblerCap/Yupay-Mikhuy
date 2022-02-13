@@ -1,7 +1,7 @@
 <template>
-<v-main fluid style="margin-left: 5px">
+<v-main fluid class="fixed ml-n8" >
   <v-container fluid>
-    <h1>Dashboard</h1>
+    <h1>Home</h1>
   </v-container>
 </v-main>
    
@@ -12,4 +12,9 @@ export default {
   name: 'Home',
 }
 </script>
+<style>
+  .fixed{
+    left: 0;
+  }
+</style>
 
