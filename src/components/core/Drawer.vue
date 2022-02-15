@@ -6,7 +6,7 @@
         position: absolute
         style="top:0px; max-height: 100%"
         v-model="drawer"
-        color="#FAE475"
+        color="#FFE162"
         :mini-variant.sync="mini"
         :right="$vuetify.rtl"
         width="260"    
