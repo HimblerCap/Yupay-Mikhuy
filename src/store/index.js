@@ -22,20 +22,21 @@ export default new Vuex.Store({
       icon: 'mdi-home',
     },
     {
-      text: 'Compras',
+      text: 'Lista de compras',
       to:"/compras",
       icon: 'kitchen',
+    },
+    {
+      text: 'Tus alimentos',
+      to:'/alimentos',
+      icon: 'restaurant_menu'
     },
     {
       text: 'Recetas',
       to:'/recetas',
       icon: 'receipt'
     },
-    {
-      text: 'Alimentos',
-      to:'/alimentos',
-      icon: 'restaurant_menu'
-    },
+    
     ],
     otherItems: [
       {

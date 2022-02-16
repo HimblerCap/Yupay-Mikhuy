@@ -1,9 +1,8 @@
-<template>
-<v-main fluid class="fixed ml-n8" >
-  <v-container fluid>
-    <div fluid>
-      <h1>Home</h1>
-      <v-container class="ma-0 pa-0 fixed_overlap">
+<template >
+<v-main fluid class="fixed ml-n8"  >
+  <v-container fluid class="mr-n9" >
+    <v-container fluid>
+      <h1 style="text-align:center" class="">Home</h1>
         <v-carousel
         cycle
         height="300"
@@ -28,23 +27,12 @@
           </v-carousel-item>
         </v-carousel>
       </v-container>
-    </div>
   </v-container>
 </v-main>
    
 </template>
 
 <script>
-let RM = null;
-
-fetch("https://rickandmortyapi.com/api/character/91")
-    .then((response)=> {
-        return response.json();
-    })
-    .then((data)=> {
-        RM = data;
-    })
-
 export default {
   name: 'Home',
   data () {
@@ -71,10 +59,9 @@ export default {
   .fixed{
     left: 0 !important;
   }
-  .fixed_overlap{
-    position: sticky;
-    margin-right: 200px !important;
-    max-width: 800px;
+  .add-margin{
+    margin: auto !important;
   }
+
 </style>
 

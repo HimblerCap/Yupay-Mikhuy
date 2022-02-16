@@ -76,19 +76,13 @@
                         <v-card class="fix2" flat color="#FFF1BD" >
                           
                         <v-form>
-
-
-
                           <v-img 
                           width="80%"
                           src="https://i.imgur.com/AkWPSNz.png"
                           ></v-img>
-
-
                         <v-card-text class="fix2 " align="center" justify="center">
-                        <v-text-field
-                        
-                        class="field" 
+                        <v-text-field                  
+                            class="field" 
                             prepend-inner-icon="email" 
                             background-color="#96CEB425" 
                             label="Email" 

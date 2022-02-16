@@ -12,7 +12,7 @@
         width="260"    
         >
         <v-list-item class="px-2 pt-3 pb-3" >
-            <div>
+            <div >
                 <v-img
                 src="https://i.imgur.com/Z7vwOkV.png"
                 width="40px">
@@ -24,7 +24,7 @@
                     <v-app-bar-nav-icon></v-app-bar-nav-icon>
                 </v-card>-->
             </div>
-            <div style="margin: 0 0 0 20px">
+            <div style="margin: 0 0 0 20px" >
                 <v-img
                     max-width="150px"
                     src="https://i.imgur.com/TTiKXEg.png">  
@@ -84,8 +84,8 @@
     name: "Drawer",
     data () {
       return {
-        drawer: false,
-        mini: false,
+        drawer: true,
+        mini: true,
       }
     },
     computed: {

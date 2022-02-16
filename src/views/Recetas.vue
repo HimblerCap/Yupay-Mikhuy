@@ -1,10 +1,11 @@
 <template>
 <v-main fluid class="fixed ml-n8" >
-  <v-container fluid>
-    <h1>Recetas</h1>
+  <v-container fluid class="mr-n9">
+    <v-container fluid>
+      <h1>Recetas</h1>
+    </v-container>
   </v-container>
 </v-main>
-   
 </template>
 <script>
 export default {
