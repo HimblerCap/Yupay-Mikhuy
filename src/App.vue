@@ -18,3 +18,9 @@ export default {
 };
 </script>
 
+<style scoped>
+.theme--light.v-application {
+    background: #FEF7DF;
+}
+</style>
+
