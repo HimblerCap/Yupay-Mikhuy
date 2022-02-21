@@ -13,13 +13,10 @@
                 flat
                 >
                     <v-autocomplete
-                    color="white"
                     background-color="#EEEEEE"
                     filled
                     solo
-                    v-model="select"
-                    
-                    :loading="loading"
+                    v-model="select"    
                     flat
                     :search-input.sync="search"
                     :items="items"
@@ -32,30 +29,22 @@
                 </v-card>
             </v-col>
 
-            <!--Sección de prueba, listado del fetch-->
-            <v-col cols="12" height="400px">
-              <button @click="getComidas">Get Comidas</button>
-              <ul>
-                <li v-for="comida in comidas" :key="comida.id">
-                  {{comida.nombre}}
-                </li>
-              </ul>
-            </v-col>
-            <!--Sección de prueba, listado del fetch-->
-
             <v-col cols="7">
                 <v-card
                 v-for="(alimento,i) in alimentos"
                 :key="i">
                     <v-row>
-                        <v-col>
-
+                        <v-col cols="12">
+                          <p>Hola a todo el mundo</p>
                         </v-col>
                     </v-row>
                 </v-card>
                 <v-card
                 height="400">
-                <h1>Aqui se listarán los alimentos</h1>
+
+                  <!--Sección encontrada en internet para listar v-card-->
+                  
+                  <!--Sección encontrada en internet para listar v-card-->
                 </v-card>
             </v-col>
             <v-col cols="5">
@@ -71,17 +60,27 @@
 </template>
 
 <script>
+let comidas = null;
+
+fetch('../database/db.json')
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            comidas = data;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
 export default {
-  
   name: 'Lista de compras',
   data () {
     return {
-        loading: false,
         search: null,
         select: null,
         items: [],
         food: ['Pollo', 'Chancho', 'Pescado', 'Zanahoria', 'Lechuga'],
-        comidas: [],
       }
     },
 
@@ -101,19 +100,7 @@ export default {
           this.loading = false
         }, 500)
       },
-      getComidas(){
-        fetch("../database/provisional.json")
-          .then((response)=> {
-            return response.json();
-          })
-          .then((data)=> {
-            this.comidas = data;
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-      }
-    },
+    }
 }
 </script>
 <style>
