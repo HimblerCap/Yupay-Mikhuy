@@ -3,7 +3,7 @@
         app
         permanent
         expand-on-hover
-        position: absolute
+        position: fixed
         style="top:0px; max-height: 100%"
         v-model="drawer"
         color="#FFE162"
