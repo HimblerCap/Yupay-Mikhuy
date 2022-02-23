@@ -58,19 +58,22 @@
 </template>
 
 <script>
-let comidas = null;
 
-fetch('../database/db.json')
-          .then((response) => {
-            return response.json();
-          })
-          .then((data) => {
-            console.log(data);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+let comidas = require('../database/db.json');
 
+// let comidas = null;
+// fetch('https://rickandmortyapi.com/api/character/137')
+//           .then( res => {
+//             return res.json();
+//           })
+//           .then((data) => {
+//             comidas = data;
+//           })
+//           .catch((err) => {
+//             console.log(err);
+//           });
+  
+ console.log(comidas)
 
 export default {
   name: 'Lista de compras',
