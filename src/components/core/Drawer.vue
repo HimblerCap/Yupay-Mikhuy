@@ -6,38 +6,36 @@
         position: fixed
         style="top:0px; max-height: 100%"
         v-model="drawer"
-        color="#FFF8E1"
+        color="#FFE162"
         :mini-variant.sync="mini"
-        mini-variant-width="100"
         :right="$vuetify.rtl"
         width="260"   
         >
         <v-list-item class="px-2 pt-3 pb-3" >
-                <div>
-                <v-card 
+            <div >
+                <v-img
+                src="https://i.imgur.com/Z7vwOkV.png"
+                width="40px">
+                </v-img>
+                <!--<v-card 
                 color="#FFDA97"
                 rounded="10px"
                 elevation="0">
                     <v-app-bar-nav-icon></v-app-bar-nav-icon>
-                </v-card>
+                </v-card>-->
             </div>
-                <div style="margin: 0 0 0 20px">
+            <div style="margin: 0 0 0 20px" >
                 <v-img
                     max-width="150px"
                     src="https://i.imgur.com/TTiKXEg.png">  
                 </v-img>
             </div>
-            <v-btn
-            icon
-            @click.stop="mini = !mini"
-            >
-            <v-icon>mdi-chevron-left</v-icon>
-            </v-btn>
+            
         </v-list-item>
 
         <v-divider></v-divider>
 
-        <v-list dense>
+        <v-list dense bottom>
             <v-list-item
             v-for="(link, i) in links"
             :key="i"
@@ -45,9 +43,10 @@
             :href="link.href"
             @click="onClick($event, link)"
             class="google-font my-0 py-0"
-            color="#FFA500"
+            color="white"
             >
-            <v-list-item-icon class="pt-6 pb-6">
+            <v-list-item-icon 
+            class="pt-6 pb-6">
                 <v-icon color="#000">{{ link.icon }}</v-icon>
             </v-list-item-icon>
 
@@ -56,8 +55,8 @@
             </v-list-item-content>
             </v-list-item>
         </v-list>
-        <v-divider></v-divider>
-            <v-list dense>
+
+        <v-list dense class="logout">
             <v-list-item
             v-for="(link, i) in others"
             :key="i"
@@ -65,7 +64,7 @@
             :href="link.href"
             @click="onClick($event, link)"
             class="google-font my-0 py-0"
-            color="#FFA500"
+            color="white"
             >
             <v-list-item-icon class="pt-6 pb-6">
                 <v-icon color="#000">{{ link.icon }}</v-icon>
@@ -85,8 +84,8 @@
     name: "Drawer",
     data () {
       return {
-        drawer: false,
-        mini: false,
+        drawer: true,
+        mini: true,
       }
     },
     computed: {
@@ -101,3 +100,10 @@
     }
     }
 </script>
+<style >
+    .logout{    
+        position: absolute !important;
+        bottom: 0 !important;
+        width: 100%;
+    }
+</style>
