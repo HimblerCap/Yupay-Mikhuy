@@ -1,25 +1,16 @@
 <template>
     <v-navigation-drawer
         app
-<<<<<<< HEAD
-        clipped
-=======
         permanent
         expand-on-hover
         position: fixed
->>>>>>> e818f976ef0b4ee77d63f23769844e1eb7256d35
         style="top:0px; max-height: 100%"
         v-model="drawer"
         color="#FFF8E1"
         :mini-variant.sync="mini"
         mini-variant-width="100"
         :right="$vuetify.rtl"
-<<<<<<< HEAD
-        width="260"
-        permanent
-=======
         width="260"   
->>>>>>> e818f976ef0b4ee77d63f23769844e1eb7256d35
         >
         <v-list-item class="px-2 pt-3 pb-3" >
                 <div>
