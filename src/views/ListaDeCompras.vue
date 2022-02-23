@@ -65,7 +65,7 @@ fetch('../database/db.json')
             return response.json();
           })
           .then((data) => {
-            comidas = data;
+            console.log(data);
           })
           .catch((err) => {
             console.log(err);
