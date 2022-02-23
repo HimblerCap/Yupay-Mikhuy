@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
+    "@tensorflow/tfjs": "^3.13.0",
     "caniuse-lite": "^1.0.30001280",
     "core-js": "^3.6.5",
     "firebase": "^7.24.0",
