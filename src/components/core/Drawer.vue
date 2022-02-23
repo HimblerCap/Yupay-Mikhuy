@@ -3,13 +3,13 @@
         app
         permanent
         expand-on-hover
-        position: absolute
+        position: fixed
         style="top:0px; max-height: 100%"
         v-model="drawer"
         color="#FFE162"
         :mini-variant.sync="mini"
         :right="$vuetify.rtl"
-        width="260"    
+        width="260"   
         >
         <v-list-item class="px-2 pt-3 pb-3" >
             <div >

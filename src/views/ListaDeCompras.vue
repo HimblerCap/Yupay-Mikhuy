@@ -30,9 +30,7 @@
             </v-col>
 
             <v-col cols="7">
-                <v-card
-                v-for="(alimento,i) in alimentos"
-                :key="i">
+                <v-card>
                     <v-row>
                         <v-col cols="12">
                           <p>Hola a todo el mundo</p>
@@ -73,6 +71,7 @@ fetch('../database/db.json')
             console.log(err);
           });
 
+
 export default {
   name: 'Lista de compras',
   data () {
@@ -81,6 +80,10 @@ export default {
         select: null,
         items: [],
         food: ['Pollo', 'Chancho', 'Pescado', 'Zanahoria', 'Lechuga'],
+
+        comidas,
+        alimentos: [],
+
       }
     },
 
@@ -100,7 +103,8 @@ export default {
           this.loading = false
         }, 500)
       },
-    }
+    },
+    
 }
 </script>
 <style>
