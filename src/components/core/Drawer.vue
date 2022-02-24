@@ -1,11 +1,14 @@
 <template>
-    <v-navigation-drawer
+    <v-container class="ma-0 pa-0">
+        <!-- Desktop view -->
+        <v-navigation-drawer
+        class="hidden-sm-and-down"
         app
         permanent
         expand-on-hover
         position: fixed
         style="top:0px; max-height: 100%"
-        v-model="drawer"
+        v-model="drawerDesk"
         color="#FFE162"
         :mini-variant.sync="mini"
         :right="$vuetify.rtl"
@@ -75,7 +78,68 @@
             </v-list-item-content>
             </v-list-item>
         </v-list>
+        </v-navigation-drawer>
+        <!-- Desktop view -->
+        <!-- Mobile view -->
+            <v-toolbar
+            class="hidden-sm-and-up ma-auto pa-0"
+            color="#FFE162"
+            elevation="1"
+            >
+              <v-app-bar-nav-icon @click.stop="drawerMob = !drawerMob"></v-app-bar-nav-icon>
+
+              <v-item>
+                <v-row align="center" justify="center">
+                    <v-col align="start" justify="start" class="ma-0" style="padding:12px 12px 8px 16px;" cols="8">
+                        <v-img     
+                        max-width="150px"
+                        src="https://i.imgur.com/TTiKXEg.png">  
+                        </v-img>
+                    </v-col>
+                    <v-spacer></v-spacer>
+                    <v-col align="end" justify="end" class="pl-13 pt-2 pb-2" cols="4">         
+                        <v-img                
+                        src="https://i.imgur.com/ZAEnwEZ.png"
+                        max-width="60px">
+                        </v-img>
+                    </v-col>
+                </v-row>
+              </v-item>
+            </v-toolbar>
+    <v-navigation-drawer
+      v-model="drawerMob"
+      absolute
+      top
+      temporary
+    >
+      <v-list
+        nav
+        dense
+      >
+        <v-list-item-group
+          v-model="group"
+          active-class="deep-purple--text text--accent-4"
+        >
+          <v-list-item>
+            <v-list-item-title>Foo</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-title>Bar</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-title>Fizz</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-title>Buzz</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
     </v-navigation-drawer>
+        <!-- Mobile view -->
+    </v-container>
 </template>
 
 <script>
@@ -84,9 +148,18 @@
     name: "Drawer",
     data () {
       return {
-        drawer: true,
+
+        drawerMob: false,
+        group: null,
+
+        drawerDesk: true,
         mini: true,
       }
+    },
+    watch: {
+      group () {
+        this.drawer = false
+      },
     },
     computed: {
     ...mapGetters(["links", "others"]),
@@ -98,7 +171,7 @@
         this.$router.push(item.to)
         }
     }
-    }
+  }
 </script>
 <style >
     .logout{    
