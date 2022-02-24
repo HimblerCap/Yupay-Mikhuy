@@ -27,7 +27,7 @@ export default new Vuex.Store({
       icon: 'kitchen',
     },
     {
-      text: 'Tus alimentos',
+      text: 'Mis alimentos',
       to:'/alimentos',
       icon: 'restaurant_menu'
     },
@@ -40,15 +40,16 @@ export default new Vuex.Store({
     ],
     otherItems: [
       {
+        text: 'Perfil',
+        to: '/profile',
+        icon: 'mdi-account'
+      },
+      {
         text: 'Configuración',
         to: '/config',
         icon: 'settings',
-      },
-      {
-        text: 'Perfil',
-        to: '/profile',
-        icon: 'logout'
       }
+  
     ]
   
   },

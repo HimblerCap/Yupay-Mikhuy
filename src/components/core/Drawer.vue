@@ -116,25 +116,59 @@
         nav
         dense
       >
+        <v-list-item>
+          <v-col class="pb-0">
+            <v-col align="center" justify="center" class="pb-0" cols="12">
+            <v-list-item-avatar
+            size="120px">
+              <v-img       
+              src="https://i.imgur.com/B12lr6W.jpg">
+              </v-img>
+            </v-list-item-avatar>
+            <h2 class="pt-2 pb-2 font-weight-medium">Gengis</h2>
+          </v-col>
+          </v-col>
+        </v-list-item>
         <v-list-item-group
           v-model="group"
-          active-class="deep-purple--text text--accent-4"
+          active-class="amber--text text--accent-4"
         >
-          <v-list-item>
-            <v-list-item-title>Foo</v-list-item-title>
-          </v-list-item>
+          <v-list-item
+            v-for="(link, i) in links"
+            :key="i"
+            :to="link.to"
+            :href="link.href"
+            @click="onClick($event, link)"
+            class="google-font my-0 py-0"
+            color="white"
+            >
+            <v-list-item-icon 
+            class="pt-6 pb-6">
+                <v-icon color="#000">{{ link.icon }}</v-icon>
+            </v-list-item-icon>
 
-          <v-list-item>
-            <v-list-item-title>Bar</v-list-item-title>
-          </v-list-item>
+            <v-list-item-content>
+                <v-list-item-title style="font-size: 15px;">{{ link.text }}</v-list-item-title>
+            </v-list-item-content>
+            </v-list-item>
+            
+            <v-list-item
+            v-for="(link, i) in others"
+            :key="i"
+            :to="link.to"
+            :href="link.href"
+            @click="onClick($event, link)"
+            class="google-font my-0 py-0"
+            color="white"
+            >
+            <v-list-item-icon class="pt-6 pb-6">
+                <v-icon color="#000">{{ link.icon }}</v-icon>
+            </v-list-item-icon>
 
-          <v-list-item>
-            <v-list-item-title>Fizz</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Buzz</v-list-item-title>
-          </v-list-item>
+            <v-list-item-content>
+                <v-list-item-title style="font-size: 15px;">{{ link.text }}</v-list-item-title>
+            </v-list-item-content>
+            </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
