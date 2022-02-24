@@ -31,12 +31,16 @@
                 </v-card>
             </v-col>
 
-            <v-col cols="7">
+            <v-col cols="8">
                 <v-card
                 height="400">
+                  <v-container>
                     <v-row>
-                        <v-col cols="12">
-                          <v-col cols="4">
+                        <v-col
+                          v-for="(food, i) in foods"
+                          position= relative
+                          :key="i"
+                          cols="4">
                             <v-card
                             elevation="1"
                             class="mx-auto"
@@ -91,12 +95,13 @@
                               </v-expand-transition>
                             </v-card>
 
-                          </v-col>
+                          
                         </v-col>
                     </v-row>
+                  </v-container>
                 </v-card>
             </v-col>
-            <v-col cols="5">
+            <v-col cols="4">
                 <v-card
                 height="400">
                     <h1>Aquí irán  las notas</h1>
