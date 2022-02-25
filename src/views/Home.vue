@@ -1,12 +1,12 @@
 <template >
-<v-main fluid class="fixed ml-n8"  >
-  <v-container fluid class="mr-n9" >
-    <v-container fluid>
-      <h1 style="text-align:center" class="">Home</h1>
+<v-main fluid class="fixed ma-0 pa-0"  >
+  <v-container fluid class="ma-0 pa-0" >
+    <v-container fluid class="ma-0 pa-0">
+      <h1 style="text-align:center" class="pa-2">Bienvenido a Yupay Mikhuy</h1>
         <v-carousel
         cycle
-        height="300"
-        max="500px"
+        height="300px"
+        max="500"
         hide-delimiter-background
         show-arrows-on-hover>
           <v-carousel-item
@@ -19,7 +19,7 @@
               class="fill-height"
               align="center"
               justify="center">
-                <div class="text-h2">
+                <div class="text-h2" font-size ="20px">
                   {{ slide }} Slide
                 </div>
               </v-row>
@@ -29,8 +29,10 @@
       </v-container>
 
       <v-container>
+        <h2 class="pa-2"> Estas recetas podrian interesarte... </h2>
+
         <v-row >
-          <v-col >
+          <v-col class="py-2 px-0">
 
               <v-card
               class="mx-auto"
@@ -85,7 +87,7 @@
                           
 
           
-          <v-col>
+          <v-col class="py-2 px-0">
 
             <v-card
               class="mx-auto"
@@ -138,7 +140,7 @@
           </v-col>
           
           
-          <v-col>
+          <v-col class="py-2 px-0">
 
               <v-card
               class="mx-auto"
@@ -191,7 +193,7 @@
           </v-col>
 
 
-          <v-col>
+          <v-col class="py-2 px-0">
 
               <v-card
               class="mx-auto"
@@ -253,6 +255,10 @@
 </template>
 
 <script>
+
+let comidas = require('../database/db.json');
+
+
 export default {
   name: 'Home',
   data () {
@@ -275,7 +281,7 @@ export default {
           'Fourth',
           'Fifth',
         ],
-
+        comidas
       }
     },
 }
@@ -293,6 +299,10 @@ export default {
   .add-margin{
     margin: auto !important;
   }
+
+
+
+
 
 </style>
 
