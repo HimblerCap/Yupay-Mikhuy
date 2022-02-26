@@ -1,7 +1,8 @@
 <template>
 <v-main fluid class="fixed ml-n8" >
-    <span class="bg"></span>
-  <v-container fluid class="mr-n9">
+
+  <!-- Desktop view -->
+  <v-container fluid class="mr-n9 hidden-sm-and-down">
     <v-container fluid>
       <h1>Lista de compras</h1>
     </v-container>
@@ -110,6 +111,15 @@
         </v-row>
     </v-container>
   </v-container>
+  <!-- Desktop view -->
+
+  <!-- Mobile view -->
+  <v-container class="ma-0 pa-0 hidden-sm-and-up">
+    <v-container fluid>
+      <h1>Lista de compras</h1>
+    </v-container>
+  </v-container>
+  <!-- Mobile view -->
 </v-main>
 </template>
 

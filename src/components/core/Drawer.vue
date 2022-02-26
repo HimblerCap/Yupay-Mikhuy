@@ -80,6 +80,7 @@
         </v-list>
         </v-navigation-drawer>
         <!-- Desktop view -->
+        
         <!-- Mobile view -->
             <v-toolbar
             class="hidden-sm-and-up ma-auto pa-0"
