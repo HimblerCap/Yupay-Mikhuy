@@ -18,16 +18,17 @@
                     style="border-radius: 10px"
                     filled
                     solo
-                    v-model="select"    
+                    v-model="selectDes"    
                     flat
-                    :loading="loading"
-                    :search-input.sync="search"
+                    :loading="loadingDes"
+                    :search-input.sync="searchDes"
                     :items="items"
                     
                     hide-no-data
                     hide-details
 
                     label="¿Qué alimento desea añadir?"
+                    append-icon="mdi-magnify"
                     ></v-autocomplete>
                 </v-card>
             </v-col>
@@ -118,6 +119,30 @@
     <v-container fluid>
       <h1>Lista de compras</h1>
     </v-container>
+    
+    <v-container class="ma-0 pa-0">
+      <v-col cols="12" class="pl-0 pr-0">
+          <v-autocomplete
+          background-color="#A1B57D50"
+          style="border-radius: 10px"
+          filled
+          solo
+          v-model="selectMob"    
+          flat
+          :loading="loadingMob"
+          :search-input.sync="searchMob"
+          :items="items"
+          
+          hide-no-data
+          hide-details
+          label="¿Qué alimento desea añadir?"
+
+          disable-lookup
+          append-icon="mdi-magnify"
+          
+          ></v-autocomplete>
+      </v-col>
+    </v-container>
   </v-container>
   <!-- Mobile view -->
 </v-main>
@@ -152,9 +177,12 @@ export default {
     return {
 
         //Autocomplete
-        loading: false,
-        search: null,
-        select: null,
+        loadingDes: false,
+        loadingMob: false,
+        searchDes: null,
+        searchMob: null,
+        selectDes: null,
+        selectMob:null,
         items: [],
         foods,
         comidas,
@@ -165,19 +193,24 @@ export default {
     },
 
     watch: {
-      search (val) {
+      searchDes (val) {
+        val && val !== this.select && this.querySelections(val)
+      },
+      searchMob (val) {
         val && val !== this.select && this.querySelections(val)
       },
     },
     methods: {
       querySelections (v) {
-        this.loading = true
+        this.loadingDes = true
+        this.loadingMob =true
         // Simulated ajax query
         setTimeout(() => {
           this.items = this.foods.filter(e => {
             return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
           })
-          this.loading = false
+          this.loadingDes = false
+          this.loadingMob = false
         }, 500)
       },
     },
@@ -191,4 +224,6 @@ export default {
   position: absolute;
   width: 100%;
 }
+
+
 </style>
