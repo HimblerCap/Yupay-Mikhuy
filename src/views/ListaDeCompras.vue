@@ -4,15 +4,13 @@
   <!-- Desktop view -->
   <v-container fluid class="mr-n9 hidden-sm-and-down">
     <v-container fluid>
-      <h1>Lista de compras</h1>
+      <h2>Lista de compras</h2>
     </v-container>
     
     <v-container>
         <v-row class="child-flex">
             <v-col cols="12">
-                <v-card 
-                flat
-                >
+                
                     <v-autocomplete
                     background-color="#A1B57D50"
                     style="border-radius: 10px"
@@ -28,14 +26,12 @@
                     hide-details
 
                     label="¿Qué alimento desea añadir?"
-                    append-icon="mdi-magnify"
+                    prepend-inner-icon="mdi-magnify"
                     ></v-autocomplete>
-                </v-card>
             </v-col>
 
             <v-col cols="8">
-                <v-card
-                height="400">
+                <v-card>
                   <v-container>
                     <v-row>
                         <v-col
@@ -117,7 +113,7 @@
   <!-- Mobile view -->
   <v-container class="ma-0 pa-0 hidden-sm-and-up">
     <v-container fluid>
-      <h1>Lista de compras</h1>
+      <h2>Lista de compras</h2>
     </v-container>
     
     <v-container class="ma-0 pa-0">
@@ -137,11 +133,53 @@
           hide-details
           label="¿Qué alimento desea añadir?"
 
-          disable-lookup
-          append-icon="mdi-magnify"
-          
           ></v-autocomplete>
       </v-col>
+      <v-row>
+          <v-col  justify="center" align="center" cols="12" class="pa-0">
+            <v-col 
+            cols="12"
+            class="pa-1"
+            v-for="(food, i) in foods"
+            position= relative
+            :key="i">
+              <v-card outlined>
+                <v-col cols="11" class="ma-0 pa-0 ">
+                  <v-row justify="center" align="center">
+                    <v-col cols="3" justify="center" align="center" class="pa-0 pl-1">
+                    <v-card class="pa-1" flat>
+                      <v-img
+                      max-width="70"
+                      max-hight="40"
+                      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+                      ></v-img>
+                    </v-card> 
+                  </v-col>
+                  <v-col cols="9" class="ma-0 pa-1">
+                    <v-row justify="center" align="center">
+                      <v-col cols="4" class="pa-0">
+                        <v-subheader>Italian, Cafe</v-subheader>
+                      </v-col>
+                      <v-col cols="7" class="pa-0">
+                        <v-text-field
+                          v-model="cantidad"
+                          label="Peso"
+                          suffix="Kg"
+                          :append-outer-icon="mdi-plus"
+                          @click:append-outer="addCantidad"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="1" class="pa-0">
+
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                  </v-row>
+                </v-col>  
+              </v-card>
+            </v-col>
+          </v-col>
+        </v-row>
     </v-container>
   </v-container>
   <!-- Mobile view -->
