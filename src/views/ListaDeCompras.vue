@@ -165,8 +165,8 @@
                           v-model="cantidad"
                           label="Peso"
                           suffix="Kg"
-                          :append-outer-icon="mdi-plus"
-                          @click:append-outer="addCantidad"
+                          append-outer-icon="mdi-plus"
+                          @click:append-outer="sendMessage"
                         ></v-text-field>
                       </v-col>
                       <v-col cols="1" class="pa-0">
@@ -214,19 +214,22 @@ export default {
   data () {
     return {
 
-        //Autocomplete
+        //Autocomplete for Mobile and Desktop
         loadingDes: false,
         loadingMob: false,
         searchDes: null,
         searchMob: null,
         selectDes: null,
         selectMob:null,
+
+
         items: [],
         foods,
         comidas,
 
         //Show V-cards
         reveal: false,
+
       }
     },
 
@@ -250,6 +253,8 @@ export default {
           this.loadingDes = false
           this.loadingMob = false
         }, 500)
+      },
+      sendMessage () {
       },
     },
     
