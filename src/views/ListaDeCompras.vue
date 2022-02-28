@@ -188,21 +188,6 @@
 
 <script>
 
-<<<<<<< HEAD
-fetch('./database/db.json')
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    comidas = data
-    console.log(':3')
-    console.log(comidas)
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
-=======
 let comidas = require('../database/db.json');
 
 // let comidas = null;
@@ -221,7 +206,6 @@ let foods = [];
 for(let i = 0; i<comidas.length ;i++){
   foods[i] = comidas[i].nombre;
 }
->>>>>>> d082a126e7ffd02e085352fcd80fd563c3c96b0a
 
 
 
