@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: "Yupay Mikhuy",
+  name: "YupayMikhuy",
   components: {
     Views:()=>import('@/components/core/Views'),
     Toolbar: ()=>import('@/components/core/Toolbar'),

@@ -58,22 +58,25 @@
 </template>
 
 <script>
-let comidas = null;
 
-fetch('../database/db.json')
-          .then((response) => {
-            return response.json();
-          })
-          .then((data) => {
-            console.log(data);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+fetch('./database/db.json')
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    comidas = data
+    console.log(':3')
+    console.log(comidas)
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+
 
 
 export default {
-  name: 'Lista de compras',
+  name: 'ListaCompras',
   data () {
     return {
         search: null,
