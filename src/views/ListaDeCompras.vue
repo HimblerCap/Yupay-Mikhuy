@@ -140,9 +140,9 @@
             <v-col 
             cols="12"
             class="pa-1"
-            v-for="(food, i) in foods"
+            v-for="(food, j) in foods"
             position= relative
-            :key="i">
+            :key="j">
               <v-card outlined>
                 <v-col cols="11" class="ma-0 pa-0 ">
                   <v-row justify="center" align="center">
@@ -162,7 +162,7 @@
                       </v-col>
                       <v-col cols="7" class="pa-0">
                         <v-text-field
-                          v-model="cantidad"
+                          v-model="amount"
                           label="Peso"
                           suffix="Kg"
                           append-outer-icon="mdi-plus"
@@ -203,8 +203,11 @@ let comidas = require('../database/db.json');
 //           });
 
 let foods = [];
+let imgs = [];
+
 for(let i = 0; i<comidas.length ;i++){
   foods[i] = comidas[i].nombre;
+  imgs[i] = comidas[i].img;
 }
 
 
@@ -222,6 +225,7 @@ export default {
         selectDes: null,
         selectMob:null,
 
+        amount: null,
 
         items: [],
         foods,
