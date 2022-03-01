@@ -135,7 +135,9 @@
             group
           >
             <v-btn class="classification-cards" retain-focus-on-click	>
-              <v-icon> fa-solid fa-turkey </v-icon>
+              <v-icon>
+                
+              </v-icon>
               <h6>Todo</h6>
             </v-btn>
     
