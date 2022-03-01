@@ -26,7 +26,7 @@
                   <v-container>
                     <v-row>
                         <v-col
-                          v-for="(food,i) in foods"
+                          v-for="(food,i) in foodsAll"
                           position= relative
                           :key="i"
                           cols="4">
@@ -119,7 +119,7 @@
             </svg>
           </div>
           <v-btn-toggle
-            v-model="category"
+            v-model="categoryButtons"
             mandatory
             color="amber darken-2"
             class="pt-2 ml-n2"
@@ -147,7 +147,7 @@
             <v-col 
             cols="12"
             class="pa-1"
-            v-for="(food,i) in foods"
+            v-for="(food,i) in foodsAll"
             position= relative
             :key="i">
               <v-card outlined>
@@ -195,8 +195,6 @@
 
 <script>
 
-let comidas = require('../database/db.json');
-
 // let comidas = null;
 // fetch('https://rickandmortyapi.com/api/character/137')
 //           .then( res => {
@@ -209,13 +207,14 @@ let comidas = require('../database/db.json');
 //             console.log(err);
 //           });
 
-let foods = [];
-let imgs = [];
+let comidas = require('../database/prueba_tottus.json');
+let categories = Object.keys(comidas);
 
-for(let i = 0; i<comidas.length ;i++){
-  foods[i] = comidas[i].nombre;
-  imgs[i] = comidas[i].img;
-}
+let foodsAll = [];
+let imgsAll = [];
+let namesAll = [];
+
+console.log(foodsAll);
 
 
 
@@ -223,11 +222,10 @@ export default {
   name: 'ListaCompras',
   data () {
     return {
-
         // Variables para el Autocomplete en Descktop
-        // loadingDes: false,
-        // searchDes: null,
-        // selectDes: null,
+        loadingDes: false,
+        searchDes: null,
+        selectDes: null,
 
         // Variables a guardar en el JSON MisAlimentos
         amount: null,
@@ -235,39 +233,22 @@ export default {
         // Extracción de datos del JSON
         comidas,
         items: [],
-        foods,
-        imgs,
+        foodsAll,
+        imgsAll,
+        namesAll,
 
         // Mostrar V-cards en Desktop
         reveal: false,
 
         //Mostrando categorias por comida
-        category: 'center',
+        categoryButtons: 'center',
       }
     },
-
-    watch: {
-      search (val) {
-        val && val !== this.select && this.querySelections(val)
-      },
-
-    },
     methods: {
-      querySelections (v) {
-        this.loadingDes = true
-        // Simulated ajax query
-        setTimeout(() => {
-          this.items = this.foods.filter(e => {
-            return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
-          })
-          this.loadingDes = false
-        }, 500)
-      },
 
       sendMessage () {
         //Aqui va el método para añadir los productos a las lista de de comidas personales
       },
-
       searchFilters(input, selector){
         //Aquí va el método para filtrar los alimentos
       }
@@ -276,7 +257,12 @@ export default {
 }
 </script>
 <style>
-
+.v-card--reveal {
+  bottom: 0;
+  opacity: 1 !important;
+  position: absolute;
+  width: 100%;
+}
 /* Decoración del input para Mobile */
 .input-wrapper {
   position: relative;
