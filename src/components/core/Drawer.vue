@@ -40,8 +40,8 @@
 
         <v-list dense bottom>
             <v-list-item
-            v-for="(link, i) in links"
-            :key="i"
+            v-for="(link, j) in links"
+            :key="j"
             :to="link.to"
             :href="link.href"
             @click="onClick($event, link)"
@@ -135,8 +135,8 @@
           active-class="amber--text text--accent-4"
         >
           <v-list-item
-            v-for="(link, i) in links"
-            :key="i"
+            v-for="(link, k) in links"
+            :key="k"
             :to="link.to"
             :href="link.href"
             @click="onClick($event, link)"
@@ -154,8 +154,8 @@
             </v-list-item>
             
             <v-list-item
-            v-for="(link, i) in others"
-            :key="i"
+            v-for="(link, l) in others"
+            :key="l"
             :to="link.to"
             :href="link.href"
             @click="onClick($event, link)"
