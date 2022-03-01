@@ -10,24 +10,15 @@
     <v-container>
         <v-row class="child-flex">
             <v-col cols="12">
-                
-                    <v-autocomplete
-                    background-color="#A1B57D50"
-                    style="border-radius: 10px"
-                    filled
-                    solo
-                    v-model="selectDes"    
-                    flat
-                    :loading="loadingDes"
-                    :search-input.sync="searchDes"
-                    :items="items"
-                    
-                    hide-no-data
-                    hide-details
-
-                    label="¿Qué alimento desea añadir?"
-                    prepend-inner-icon="mdi-magnify"
-                    ></v-autocomplete>
+              <div class="input-wrapper">
+                <input 
+                type="search" 
+                placeholder="¿Qué alimento desea añadir?" 
+                class="input">
+                <svg xmlns="http://www.w3.org/2000/svg" class="input-icon" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                </svg>
+              </div>
             </v-col>
 
             <v-col cols="8">
@@ -135,9 +126,6 @@
             group
           >
             <v-btn class="classification-cards" retain-focus-on-click	>
-              <v-icon>
-                
-              </v-icon>
               <h6>Todo</h6>
             </v-btn>
     
@@ -237,9 +225,9 @@ export default {
     return {
 
         // Variables para el Autocomplete en Descktop
-        loadingDes: false,
-        searchDes: null,
-        selectDes: null,
+        // loadingDes: false,
+        // searchDes: null,
+        // selectDes: null,
 
         // Variables a guardar en el JSON MisAlimentos
         amount: null,
