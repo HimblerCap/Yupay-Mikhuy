@@ -35,7 +35,7 @@
                   <v-container>
                     <v-row>
                         <v-col
-                          v-for="(food, i) in foods"
+                          v-for="(food,i) in foods"
                           position= relative
                           :key="i"
                           cols="4">
@@ -118,31 +118,48 @@
     
     <v-container class="ma-0 pa-0">
       <v-col cols="12" class="pl-0 pr-0">
-          <v-autocomplete
-          background-color="#A1B57D50"
-          style="border-radius: 10px"
-          filled
-          solo
-          v-model="selectMob"    
-          flat
-          :loading="loadingMob"
-          :search-input.sync="searchMob"
-          :items="items"
-          
-          hide-no-data
-          hide-details
-          label="¿Qué alimento desea añadir?"
-
-          ></v-autocomplete>
+          <div class="input-wrapper">
+            <input 
+            type="search" 
+            placeholder="¿Qué alimento desea añadir?" 
+            class="input">
+            <svg xmlns="http://www.w3.org/2000/svg" class="input-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <v-btn-toggle
+            v-model="category"
+            mandatory
+            color="amber darken-2"
+            class="pt-2 ml-n2"
+            group
+          >
+            <v-btn class="classification-cards" retain-focus-on-click	>
+              <v-icon> fa-solid fa-turkey </v-icon>
+              <h6>Todo</h6>
+            </v-btn>
+    
+            <v-btn>
+              <h6>Vegetales</h6>
+            </v-btn>
+    
+            <v-btn>
+              <h6>Frutas</h6>
+            </v-btn>
+              
+            <v-btn>
+              <h6>Carnes</h6>
+            </v-btn>
+          </v-btn-toggle>
       </v-col>
       <v-row>
           <v-col  justify="center" align="center" cols="12" class="pa-0">
             <v-col 
             cols="12"
             class="pa-1"
-            v-for="(food, j) in foods"
+            v-for="(food,i) in foods"
             position= relative
-            :key="j">
+            :key="i">
               <v-card outlined>
                 <v-col cols="11" class="ma-0 pa-0 ">
                   <v-row justify="center" align="center">
@@ -217,60 +234,90 @@ export default {
   data () {
     return {
 
-        //Autocomplete for Mobile and Desktop
+        // Variables para el Autocomplete en Descktop
         loadingDes: false,
-        loadingMob: false,
         searchDes: null,
-        searchMob: null,
         selectDes: null,
-        selectMob:null,
 
+        // Variables a guardar en el JSON MisAlimentos
         amount: null,
 
+        // Extracción de datos del JSON
+        comidas,
         items: [],
         foods,
-        comidas,
+        imgs,
 
-        //Show V-cards
+        // Mostrar V-cards en Desktop
         reveal: false,
 
+        //Mostrando categorias por comida
+        category: 'center',
       }
     },
 
     watch: {
-      searchDes (val) {
+      search (val) {
         val && val !== this.select && this.querySelections(val)
       },
-      searchMob (val) {
-        val && val !== this.select && this.querySelections(val)
-      },
+
     },
     methods: {
       querySelections (v) {
         this.loadingDes = true
-        this.loadingMob =true
         // Simulated ajax query
         setTimeout(() => {
           this.items = this.foods.filter(e => {
             return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
           })
           this.loadingDes = false
-          this.loadingMob = false
         }, 500)
       },
+
       sendMessage () {
+        //Aqui va el método para añadir los productos a las lista de de comidas personales
       },
+
+      searchFilters(input, selector){
+        //Aquí va el método para filtrar los alimentos
+      }
     },
     
 }
 </script>
 <style>
-.v-card--reveal {
-  bottom: 0;
-  opacity: 1 !important;
-  position: absolute;
+
+/* Decoración del input para Mobile */
+.input-wrapper {
+  position: relative;
   width: 100%;
 }
+.input {
+  color: #191919;
+  padding: 10px 10px 10px 35px;
+  width: 100%;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid #FFC300;
+}
+.input-icon {
+  color: #FFC300;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
 
+/* Personalizando Classification Cards */
+.classification-cards{
+
+}
+
+/* Agregando las opciones de filtrado */
+.filter{
+  display: none;
+}
 
 </style>
