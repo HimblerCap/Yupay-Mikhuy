@@ -148,6 +148,7 @@
             cols="12"
             class="pa-1"
             v-for="(food,i) in foodsAll"
+            :href="food.href"
             position= relative
             :key="i">
               <v-card outlined>
@@ -158,25 +159,26 @@
                       <v-img
                       max-width="70"
                       max-hight="40"
-                      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+                      :src="food.images[0]"
                       ></v-img>
                     </v-card> 
                   </v-col>
                   <v-col cols="9" class="ma-0 pa-1">
                     <v-row justify="center" align="center">
-                      <v-col cols="4" class="pa-0">
-                        <v-subheader>Italian, Cafe</v-subheader>
+                      <v-col cols="4" class="pa-0 ml-3">
+                          <h5 style="font-family: 'Lato', sans-serif;">{{food.name | capitalize}}</h5>
                       </v-col>
-                      <v-col cols="7" class="pa-0">
+                      <v-col cols="6" class="pa-0 pl-3 ml-3">
                         <v-text-field
                           v-model="amount"
                           label="Peso"
+                          :key="i"
                           suffix="Kg"
                           append-outer-icon="mdi-plus"
                           @click:append-outer="sendMessage"
                         ></v-text-field>
                       </v-col>
-                      <v-col cols="1" class="pa-0">
+                      <v-col cols="0" class="pa-0">
 
                       </v-col>
                     </v-row>
@@ -224,10 +226,6 @@ for(let k=0; k<comidas.menestras.length;k++){
 foodsAll = Fruits.concat(Vegetables);
 foodsAll = foodsAll.concat(Stews);
 
-console.log(foodsAll);
-
-
-
 
 
 
@@ -262,10 +260,18 @@ export default {
         //Aquí va el método para filtrar los alimentos
       }
     },
-    
+    filters: {
+      capitalize: function (value) {
+        if (!value) return ''
+        value = value.toString()
+        return value.charAt(0).toUpperCase() + value.slice(1)
+      }
+}
 }
 </script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&family=Sofia&family=Trocchi&display=swap');
+
 .v-card--reveal {
   bottom: 0;
   opacity: 1 !important;
@@ -304,5 +310,6 @@ export default {
 .filter{
   display: none;
 }
+
 
 </style>
