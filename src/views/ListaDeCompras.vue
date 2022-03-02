@@ -208,13 +208,27 @@
 //           });
 
 let comidas = require('../database/prueba_tottus.json');
-let categories = Object.keys(comidas);
 
-let foodsAll = [];
-let imgsAll = [];
-let namesAll = [];
+let foodsAll = [], namesAll = [], imgsAll = [];
+let Fruits = [], Vegetables = [], Stews = [];
+
+for(let i=0; i<comidas.frutas.length;i++){
+  Fruits[i] = comidas.frutas[i];
+}
+for(let j=0; j<comidas.verduras.length;j++){
+  Vegetables[j] = comidas.verduras[j];
+}
+for(let k=0; k<comidas.menestras.length;k++){
+  Stews[k] = comidas.menestras[k];
+}
+foodsAll = Fruits.concat(Vegetables);
+foodsAll = foodsAll.concat(Stews);
 
 console.log(foodsAll);
+
+
+
+
 
 
 
@@ -222,11 +236,6 @@ export default {
   name: 'ListaCompras',
   data () {
     return {
-        // Variables para el Autocomplete en Descktop
-        loadingDes: false,
-        searchDes: null,
-        selectDes: null,
-
         // Variables a guardar en el JSON MisAlimentos
         amount: null,
 
@@ -288,7 +297,7 @@ export default {
 
 /* Personalizando Classification Cards */
 .classification-cards{
-
+  
 }
 
 /* Agregando las opciones de filtrado */
