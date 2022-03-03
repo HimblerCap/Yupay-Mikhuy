@@ -13,16 +13,52 @@ export default new Vuex.Store({
       email: '',
       name: ''
     },
+    keysandsecurity:{
+      meetup:''
+    },
     items: [{
-      text: 'Home',
+      text: 'Inicio',
       to:'/home',
-    }
+      icon: 'mdi-home',
+    },
+    {
+      text: 'Lista de compras',
+      to:"/compras",
+      icon: 'kitchen',
+    },
+    {
+      text: 'Mis alimentos',
+      to:'/alimentos',
+      icon: 'restaurant_menu'
+    },
+    {
+      text: 'Recetas',
+      to:'/recetas',
+      icon: 'receipt'
+    },
+    
     ],
+    otherItems: [
+      {
+        text: 'Perfil',
+        to: '/profile',
+        icon: 'mdi-account'
+      },
+      {
+        text: 'Configuración',
+        to: '/config',
+        icon: 'settings',
+      }
+  
+    ]
   
   },
   getters: {
     links: (state) => {
       return state.items
+    },
+    others: (state) => {
+      return state.otherItems
     }
   },
   mutations: {

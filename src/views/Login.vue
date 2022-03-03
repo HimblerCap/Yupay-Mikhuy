@@ -13,7 +13,7 @@
                       <v-col cols="12" md="6" class="pa-0">
                         <v-card align="center" justify="center" min-height="600px" color="#EEC373" class="fix" flat>
                           <v-img 
-                          width="270px"
+                          max-width="270px"
                           src="https://i.imgur.com/GaaTYIJ.png"
                           ></v-img>
                         </v-card>
@@ -54,40 +54,35 @@
           </v-col>
         </v-row>
         
-        <!--Mobile-->
-        <!--
-        <v-container class ="hidden-sm-and-up">
-          
-          <v-img : src="require('@/assets/backgrounds/background-desktop.png')">
-          </v-img>
-        </v-container>
-        -->
-        
-        <v-container class="hidden-sm-and-up">
+        <!-- Desktop -->
 
-            <v-card >
-            <v-container fluid style="height:100vh">
-                <v-row align="center" justify="center">
-                    <v-col align="center" justify="center">
-                        <v-card class="fix2" flat>
+        <!--Mobile-->   
+        <v-container fluid class="hidden-sm-and-up ; fill-height; fill-width ; ma-0 pa-0 ">
+          <v-row  align="center" justify="center" class="pa-0 ma-0">
+            <v-card color ="#FFF1BD" align="center" height="100%">
+            <v-container fluid style="height:100vh" class="pa-0"  >
+                <v-col align="center" justify="center"  class=" d-sm-block pa-0 ma-0">
+                  <v-row align="center" justify="center" width="100%" class="pa-0 ma-0">
+                        <v-card flat class="pa-0 ma-0" width="100%" color="#FFF1BD" >
                           <v-img 
-                            max-width="500px"
-                            :src="require('@/assets/backgrounds/background-desktop.png')"
+                            width="100%"
+                            :src="require('@/assets/backgrounds/background-mobile-2.png')"
                           ></v-img>
+                        </v-card>
+
+
+                  </v-row>
+                    <v-row align="center" justify="center" color="#FFF1BD" class="ma-0 pa-0">
+                        <v-card class="fix2" flat color="#FFF1BD" >
+                          
                         <v-form>
-
-
-
                           <v-img 
-                          width="230px"
+                          width="80%"
                           src="https://i.imgur.com/AkWPSNz.png"
                           ></v-img>
-
-
-                        <v-card-text class="px-5 pb-0">
-                        <v-text-field
-                        
-                        class="field" 
+                        <v-card-text class="fix2 " align="center" justify="center">
+                        <v-text-field                  
+                            class="field" 
                             prepend-inner-icon="email" 
                             background-color="#96CEB425" 
                             label="Email" 
@@ -108,31 +103,23 @@
                         </v-card-text>
                     </v-form>
                     <v-card-actions class="justify-center" >
-                        <v-btn
-                        class="ma-12 white--text"
                         
-                        v-on:click="login" 
-                        rounded :loading="loading" 
-                        color="#3D84E1" 
-                        depressed>
-                        <span class="white--text px-8">Login</span>
-                        </v-btn>
-                        <!--
-                        <div class="text-center mt-3">
-                        <v-btn v-on:click="login" class= style="height:50px; width:200px;"  rounded :loading="loading" color="#2ECC7195">Log In</v-btn>
+                        <div class="text-center m-0">
+                        <v-btn v-on:click="login" class="ma-0 white--text" style="height:50px; width:200px;"  rounded :loading="loading" color="#2ECC7195">Log In</v-btn>
                           </div>
-                        -->
 
                     </v-card-actions>
                     </v-card>
-                    </v-col>
-                </v-row>
+                                       
+                    </v-row>
+                             
+                </v-col>
             </v-container>
             </v-card>
-            
+            </v-row>
         </v-container>
         
-
+        <!--Mobile-->
 
 
 

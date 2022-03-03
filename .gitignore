@@ -8,9 +8,19 @@ node_modules
 .env.*.local
 
 # Log files
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+firebase-debug.log*
+firebase-debug.*.log*
+
+# Firebase cache
+.firebase/
+
+# dotenv enviroment variables file
+.env
 
 # Editor directories and files
 .idea
