@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+Vue.use(Vuex)
+
 // Agregando el Filtro
 let comidas = require('../database/prueba_tottus.json');
 
@@ -23,9 +25,7 @@ for(let f=0; f<foodsAll.length; f++){
 
 const foods = () => {
   return foodsAll
-};
-
-Vue.use(Vuex)
+}
 
 export default new Vuex.Store({
   state: {
@@ -104,7 +104,7 @@ export default new Vuex.Store({
     others: (state) => {
       return state.otherItems
     },
-    filteredFoods (state){
+    filteredFoods: (state) => {
       let foods = state.foods.filter(food => food.avalaible === state.filter.avalaible);
       if (state.filter.query.length > 2){
         return foods.filter(food => food.name.toLowerCase().includes(state.filter.query));
