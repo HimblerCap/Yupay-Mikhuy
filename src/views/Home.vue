@@ -512,40 +512,47 @@
 </template>
 
 <script>
+import * as tf from '@tensorflow/tfjs';
+import { file2LocalStorage } from '../utils/utils';
 
-let comidas = require('../database/db.json');
+async function load(){
+  file2LocalStorage();
+  const model = await tf.loadLayersModel('localstorage://recieps');
+  model.summary();
+}
+
+load();
+
+
+let comidas = require('../database/prueba_tottus.json');
 
 
 export default {
   name: 'Home',
   data () {
-      return {
-        show: false,
-        show2: false,
-        show3: false,
-        show4: false,
-        colors: [
-          'indigo',
-          'warning',
-          'pink darken-2',
-          'red lighten-1',
-          'deep-purple accent-4',
-        ],
-        slides: [
-          'First',
-          'Second',
-          'Third',
-          'Fourth',
-          'Fifth',
-        ],
-        comidas
-      }
-    },
+    return {
+      show: false,
+      show2: false,
+      show3: false,
+      show4: false,
+      colors: [
+        'indigo',
+        'warning',
+        'pink darken-2',
+        'red lighten-1',
+        'deep-purple accent-4',
+      ],
+      slides: [
+        'First',
+        'Second',
+        'Third',
+        'Fourth',
+        'Fifth',
+      ],
+      comidas
+    }
+  },
 }
-
-  
-
-
 
 
 </script>
@@ -556,10 +563,4 @@ export default {
   .add-margin{
     margin: auto !important;
   }
-
-
-
-
-
 </style>
-

@@ -1,6 +1,5 @@
 <template>
 <v-main fluid class="fixed ml-n8" >
-
   <!-- Desktop view -->
   <v-container fluid class="mr-n9 hidden-sm-and-down">
     <v-container fluid>
@@ -12,7 +11,8 @@
             <v-col cols="12">
               <div class="input-wrapper">
                 <input 
-                type="search" 
+                type="search"
+                v-model="search"
                 placeholder="¿Qué alimento desea añadir?" 
                 class="input">
                 <svg xmlns="http://www.w3.org/2000/svg" class="input-icon" viewBox="0 0 20 20" fill="currentColor">
@@ -26,7 +26,7 @@
                   <v-container>
                     <v-row>
                         <v-col
-                          v-for="(food,i) in foodsAll"
+                          v-for="(food,i) in foods"
                           position= relative
                           :key="i"
                           cols="4">
@@ -109,48 +109,50 @@
     
     <v-container class="ma-0 pa-0">
       <v-col cols="12" class="pl-0 pr-0">
-          <div class="input-wrapper">
-            <input 
-            type="search" 
-            placeholder="¿Qué alimento desea añadir?" 
-            class="input">
-            <svg xmlns="http://www.w3.org/2000/svg" class="input-icon" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-            </svg>
-          </div>
-          <v-btn-toggle
-            v-model="categoryButtons"
-            mandatory
-            color="amber darken-2"
-            class="pt-2 ml-n2"
-            group
-          >
-            <v-btn class="classification-cards" retain-focus-on-click	>
-              <h6>Todo</h6>
-            </v-btn>
-    
-            <v-btn>
-              <h6>Vegetales</h6>
-            </v-btn>
-    
-            <v-btn>
-              <h6>Frutas</h6>
-            </v-btn>
-              
-            <v-btn>
-              <h6>Carnes</h6>
-            </v-btn>
+            <div class="input-wrapper">
+              <input 
+              type="text"
+              v-model="search" 
+              placeholder="¿Qué alimento desea añadir?" 
+              class="input">
+              <svg xmlns="http://www.w3.org/2000/svg" class="input-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <v-btn-toggle
+              v-model="categoryButtons"
+              mandatory
+              color="amber darken-2"
+              class="pt-3 ml-n2"
+              group
+            >
+              <v-btn class="classification-cards" retain-focus-on-click	>
+                <h6>Todo</h6>
+              </v-btn>
+
+              <v-btn>
+                <h6>Vegetales</h6>
+              </v-btn>
+
+              <v-btn>
+                <h6>Frutas</h6>
+              </v-btn>
+
+              <v-btn>
+                <h6>Menestras</h6>
+              </v-btn>
           </v-btn-toggle>
+          
       </v-col>
       <v-row>
           <v-col  justify="center" align="center" cols="12" class="pa-0">
             <v-col 
             cols="12"
             class="pa-1"
-            v-for="(food,i) in foodsAll"
-            :href="food.href"
-            position= relative
-            :key="i">
+            v-for="(food,i) in foods"
+            :key="i"
+            position=relative
+            >
               <v-card outlined>
                 <v-col cols="11" class="ma-0 pa-0 ">
                   <v-row justify="center" align="center">
@@ -196,6 +198,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
 
 // let comidas = null;
 // fetch('https://rickandmortyapi.com/api/character/137')
@@ -209,26 +212,6 @@
 //             console.log(err);
 //           });
 
-let comidas = require('../database/prueba_tottus.json');
-
-let foodsAll = [], namesAll = [], imgsAll = [];
-let Fruits = [], Vegetables = [], Stews = [];
-
-for(let i=0; i<comidas.frutas.length;i++){
-  Fruits[i] = comidas.frutas[i];
-}
-for(let j=0; j<comidas.verduras.length;j++){
-  Vegetables[j] = comidas.verduras[j];
-}
-for(let k=0; k<comidas.menestras.length;k++){
-  Stews[k] = comidas.menestras[k];
-}
-foodsAll = Fruits.concat(Vegetables);
-foodsAll = foodsAll.concat(Stews);
-
-
-
-
 
 export default {
   name: 'ListaCompras',
@@ -237,36 +220,52 @@ export default {
         // Variables a guardar en el JSON MisAlimentos
         amount: null,
 
-        // Extracción de datos del JSON
-        comidas,
-        items: [],
-        foodsAll,
-        imgsAll,
-        namesAll,
-
         // Mostrar V-cards en Desktop
         reveal: false,
 
-        //Mostrando categorias por comida
+        // Mostrar categorias de comida
         categoryButtons: 'center',
       }
     },
-    methods: {
-
-      sendMessage () {
-        //Aqui va el método para añadir los productos a las lista de de comidas personales
+  computed: {
+    search: {
+      get () {
+        return this.$store.state.filter.query;
       },
-      searchFilters(input, selector){
-        //Aquí va el método para filtrar los alimentos
+      set (val) {
+        this.$store.commit('setQuery',val);
       }
     },
-    filters: {
-      capitalize: function (value) {
-        if (!value) return ''
-        value = value.toString()
-        return value.charAt(0).toUpperCase() + value.slice(1)
+    available: {
+      get () {
+        return this.$store.state.filter.available;
+      },
+      set () {
+        this.$store.commit('setAvailable')
       }
-}
+    },
+    ...mapGetters({
+      foods : 'filteredFoods'
+    })
+  },
+  props: {
+    foods: {
+      type: Object,
+      required: true,
+    }
+  },
+  methods: {
+    sendMessage () {
+      //Aqui va el método para añadir los productos a las lista de de comidas personales
+    },
+  },
+  filters: {
+    capitalize: function (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    }
+  }
 }
 </script>
 <style>
@@ -285,7 +284,7 @@ export default {
 }
 .input {
   color: #191919;
-  padding: 10px 10px 10px 35px;
+  padding: 10px 10px 10px 10px;
   width: 100%;
   outline: none;
   border-radius: 5px;
@@ -296,7 +295,7 @@ export default {
   position: absolute;
   width: 20px;
   height: 20px;
-  left: 12px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
 }
