@@ -524,7 +524,7 @@ async function load(){
 load();
 
 
-let comidas = require('../database/db.json');
+let comidas = require('../database/prueba_tottus.json');
 
 
 export default {
