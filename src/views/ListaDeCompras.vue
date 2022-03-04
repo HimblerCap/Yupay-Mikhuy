@@ -11,7 +11,8 @@
             <v-col cols="12">
               <div class="input-wrapper">
                 <input 
-                type="search" 
+                type="search"
+                v-model="search"
                 placeholder="¿Qué alimento desea añadir?" 
                 class="input">
                 <svg xmlns="http://www.w3.org/2000/svg" class="input-icon" viewBox="0 0 20 20" fill="currentColor">
@@ -25,7 +26,7 @@
                   <v-container>
                     <v-row>
                         <v-col
-                          v-for="(food,i) in foodsAll"
+                          v-for="(food,i) in foods"
                           position= relative
                           :key="i"
                           cols="4">
@@ -111,17 +112,12 @@
             <div class="input-wrapper">
               <input 
               type="text"
-              id="searchProduct" 
+              v-model="search" 
               placeholder="¿Qué alimento desea añadir?" 
               class="input">
-               <v-btn
-                icon
-                class="input-icon"
-                color="#FFC300"
-                id="button"
-               >
-                <v-icon>mdi-magnify</v-icon>
-              </v-btn>
+              <svg xmlns="http://www.w3.org/2000/svg" class="input-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+              </svg>
             </div>
             <v-btn-toggle
               v-model="categoryButtons"
@@ -153,7 +149,7 @@
             <v-col 
             cols="12"
             class="pa-1"
-            v-for="(food,i) in foodsAll"
+            v-for="(food,i) in foods"
             :key="i"
             position=relative
             >
@@ -202,6 +198,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
 
 // let comidas = null;
 // fetch('https://rickandmortyapi.com/api/character/137')
@@ -215,49 +212,13 @@
 //             console.log(err);
 //           });
 
-let comidas = require('../database/prueba_tottus.json');
-
-let foodsAll = [], namesAll = [], imgsAll = [];
-let Fruits = [], Vegetables = [], Stews = [];
-
-for(let i=0; i<comidas.frutas.length;i++){
-  Fruits[i] = comidas.frutas[i];
-}
-for(let j=0; j<comidas.verduras.length;j++){
-  Vegetables[j] = comidas.verduras[j];
-}
-for(let k=0; k<comidas.menestras.length;k++){
-  Stews[k] = comidas.menestras[k];
-}
-foodsAll = foodsAll.concat(Fruits)
-foodsAll = foodsAll.concat(Vegetables);
-foodsAll = foodsAll.concat(Stews);
-
-const formulario = document.getElementsByClassName('#searchProduct');
-const boton = document.getElementsByClassName("#button");
-const filtrar = function(){
-  console.log(formulario.value);  
-  }
-
-
 
 export default {
   name: 'ListaCompras',
   data () {
     return {
-        // Variables extraidas del JSON
-        comidas,
-        foodsAll,
-        imgsAll,
-        namesAll,
-
         // Variables a guardar en el JSON MisAlimentos
         amount: null,
-
-        // Variables del Filtro en tiempo real 
-        formulario,
-        boton,
-        filtrar,
 
         // Mostrar V-cards en Desktop
         reveal: false,
@@ -266,21 +227,45 @@ export default {
         categoryButtons: 'center',
       }
     },
-    methods: {
-      sendMessage () {
-        //Aqui va el método para añadir los productos a las lista de de comidas personales
+  computed: {
+    search: {
+      get () {
+        return this.$store.state.filter.query;
       },
-      filtrarElementos(){
-                
+      set (val) {
+        this.$store.commit('setQuery',val);
       }
     },
-    filters: {
-      capitalize: function (value) {
-        if (!value) return ''
-        value = value.toString()
-        return value.charAt(0).toUpperCase() + value.slice(1)
+    available: {
+      get () {
+        return this.$store.state.filter.available;
+      },
+      set () {
+        this.$store.commit('setAvailable')
       }
-}
+    },
+    ...mapGetters({
+      foods : 'filteredFoods'
+    })
+  },
+  props: {
+    foods: {
+      type: Object,
+      required: true,
+    }
+  },
+  methods: {
+    sendMessage () {
+      //Aqui va el método para añadir los productos a las lista de de comidas personales
+    },
+  },
+  filters: {
+    capitalize: function (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    }
+  }
 }
 </script>
 <style>
