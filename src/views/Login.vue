@@ -120,9 +120,6 @@
         </v-container>
         
         <!--Mobile-->
-
-
-
     </v-container>
 </template>
 
@@ -141,14 +138,13 @@ export default {
     if (firebase.auth.currentUser) {
       this.$router.replace("/");
     } else {
-      this.alertMsg = ":3";
+      this.alertMsg = "Error with the authentication";
     }
   },
   methods: {
     login() {
       var self = this;
       self.loading = true;
-      console.log(self.email, self.password)
       firebase.auth
         .signInWithEmailAndPassword(self.email, self.password)
         .then((user) => {
