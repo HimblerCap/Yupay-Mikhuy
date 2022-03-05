@@ -301,9 +301,9 @@ export default {
 }
 
 /* Personalizando Classification Cards */
-.classification-cards{
+/* .classification-cards{
   
-}
+} */
 
 /* Agregando las opciones de filtrado */
 .filter{

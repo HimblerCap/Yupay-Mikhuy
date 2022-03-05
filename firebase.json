@@ -1,7 +1,7 @@
 {
   "hosting": {
     "site": "",
-    "public": "dist",
+    "public": "public",
     "rewrites": [
       {
         "source": "**",
