@@ -1,6 +1,11 @@
 <template>
 <v-main fluid class="fixed ml-n8" >
-  <v-container fluid class="mr-n9">
+
+
+  <!--Desktop-->
+
+
+  <v-container fluid class="mr-n9 hidden-sm-and-down">
     <v-container fluid>
       <h1>Tus alimentos</h1>
     </v-container>
@@ -14,14 +19,14 @@
           cols="auto">
 
             <v-card class="mx-auto"
-              max-width="344"
-              min-width="300">
+              width="320"
+              height="380">
                 <div class="d-flex flex-no-wrap justify-space-between">
               <div>
                 <v-card-title
                   class="text-h5"
-                  v-text="item.tipo"
-                ></v-card-title>
+                  v-text="Fruta"
+                ></v-card-title> <!-- item.tipo -->
 
                 <v-card-subtitle v-text="item.name"></v-card-subtitle>
               </div>
@@ -31,7 +36,10 @@
                 size="125"
                 tile
               >
-                <v-img :src="item.images"></v-img>
+                <v-img :src="item.images[0]"
+                max-width="100"
+                
+                ></v-img>
               </v-avatar>
 
 
@@ -39,12 +47,12 @@
 
               <div>
                 <v-card color="#F3C892">
-                    <v-card-text>Inventario: {{item.cantidad}} {{item.unidad}} de {{item.name}}  </v-card-text>
+                    <v-card-text>Inventario: <!--  {{item.cantidad}} {{item.unidad}} de {{item.name}} --> 1 kg de {{item.name}} </v-card-text>
                 </v-card>
 
               </div>
-
-              <v-alert v-if="item.cant_dias > 5"
+              <!-- <v-alert v-if="item.cant_dias > 5" -->
+              <v-alert v-if="4 > 5"
               
                     
                 type="error"
@@ -52,7 +60,7 @@
                 dense
                 class="mx-2 mt-4"
                 >
-                La {{item.tipo}} tiene {{item.cant_dias}} días almacenada.
+                <!--La {{item.tipo}} tiene {{item.cant_dias}} días almacenada.-->
                   
               </v-alert>
 
@@ -123,17 +131,171 @@
     
 
   </v-container>
+
+  <!--MOBILE-->
+
+  <v-container class="ma-0 pa-0 hidden-sm-and-up">
+
+
+    <v-container fluid>
+      <h2>Mis alimentos</h2>
+    </v-container>
+    
+    <v-container class="ma-0 pa-0">
+      <v-col cols="12" class="pl-0 pr-0">
+          
+          <v-btn-toggle
+            v-model="categoryButtons"
+            mandatory
+            color="amber darken-2"
+            class="pt-2 ml-n2"
+            group
+          >
+            <v-btn class="classification-cards" retain-focus-on-click	>
+              <h6>Todos</h6>
+            </v-btn>
+    
+            <v-btn>
+              <h6>Vegetales</h6>
+            </v-btn>
+    
+            <v-btn>
+              <h6>Frutas</h6>
+            </v-btn>
+              
+            <v-btn>
+              <h6>Carnes</h6>
+            </v-btn>
+          </v-btn-toggle>
+      </v-col>
+      <!--
+      <v-row>
+          <v-col  justify="center" align="center" cols="12" class="pa-0">
+            <v-col 
+            cols="12"
+            class="pa-1"
+            v-for="(food,i) in foodsAll"
+            :href="food.href"
+            position= relative
+            :key="i">
+              <v-card outlined>
+                <v-col cols="11" class="ma-0 pa-0 ">
+                  <v-row justify="center" align="center">
+                    <v-col cols="3" justify="center" align="center" class="pa-0 pl-1">
+                    <v-card class="pa-1" flat>
+                      <v-img
+                      max-width="70"
+                      max-height="40"
+                      :src="food.images[0]"
+                      ></v-img>
+                    </v-card> 
+                  </v-col>
+                  <v-col cols="9" class="ma-0 pa-1">
+                    <v-row justify="center" align="center">
+                      <v-col cols="4" class="pa-0 ml-3">
+                          <h5 style="font-family: 'Lato', sans-serif;">{{food.name}}</h5>
+                      </v-col>
+                      
+                    </v-row>
+                  </v-col>
+                  </v-row>
+                </v-col>  
+              </v-card>
+            </v-col>
+          </v-col>
+        </v-row>
+        -->
+        <v-row class="align-content-lg ma-0 pa-0"
+        v-for="(item, i) in items"
+          :key="i"
+        
+        >
+          <v-card
+          width="100%"
+          min-height="100px"
+          class="pa-2 my-2">
+            <div class="d-flex flex-no-wrap justify-space-around "  justify="center">
+            <v-avatar
+             class="ma-0"
+                size="100"
+                tile>
+              <v-img :src="item.images[0]"
+              max-width="100"
+              max-height="100"
+              >
+                
+              </v-img>
+
+              
+            </v-avatar>
+            <div>
+              <v-card-title
+                  class="ma-0 pa-0"
+                  
+                >
+                Fruta <v-spacer></v-spacer> 
+                <v-icon v-if="item.cant_dias > 5" 
+                  dark color="#FF891C" 
+                  large>
+                  mdi-alert
+                  </v-icon>
+                
+                </v-card-title> <!-- item.tipo -->
+
+                <v-card-subtitle 
+                class="ma-0 pa-0" v-text="item.name"></v-card-subtitle>
+                <v-card-text  class="ma-0 pb-2 px-0">Inventario: 3 kg de {{item.name}}</v-card-text>
+
+                <div align = "center">
+                <v-btn
+                    small
+                depressed
+                color="#C4C4C4"
+                >
+                    MÁS INFORMACIÓN
+                </v-btn>
+                </div>
+            </div>
+
+            </div>
+
+          </v-card>
+        </v-row>
+
+
+    </v-container>
+
+  </v-container>
 </v-main>
 </template>
 
 
 <script>
-  export default {
-    data: () => ({
-      items: [
+
+let comidas = require('../database/prueba_tottus.json');
+
+let foodsAll = [], namesAll = [], imgsAll = [];
+let Fruits = [], Vegetables = [], Stews = [];
+
+for(let i=0; i<comidas.frutas.length;i++){
+  Fruits[i] = comidas.frutas[i];
+}
+for(let j=0; j<comidas.verduras.length;j++){
+  Vegetables[j] = comidas.verduras[j];
+}
+for(let k=0; k<comidas.menestras.length;k++){
+  Stews[k] = comidas.menestras[k];
+}
+foodsAll = Fruits.concat(Vegetables);
+foodsAll = foodsAll.concat(Stews);
+
+
+
+let show =[];
+let items= [
         {
           name: 'Melon coquito',
-          images: "https://e39a9f00db6c5bc097f9-75bc5dce1d64f93372e7c97ed35869cb.ssl.cf1.rackcdn.com/img-XcryIxSn.jpg",
+          images: ["https://e39a9f00db6c5bc097f9-75bc5dce1d64f93372e7c97ed35869cb.ssl.cf1.rackcdn.com/img-XcryIxSn.jpg"],
           tipo: "Fruta",
 
           cantidad: 3.5,
@@ -145,7 +307,7 @@
         },
         {
           name: 'maracuy\u00e1',
-          images: "https://e39a9f00db6c5bc097f9-75bc5dce1d64f93372e7c97ed35869cb.ssl.cf1.rackcdn.com/42259096-dyeLeJHM.jpg",
+          images: [ "https://e39a9f00db6c5bc097f9-75bc5dce1d64f93372e7c97ed35869cb.ssl.cf1.rackcdn.com/42259096-dyeLeJHM.jpg"],
           tipo: "Fruta",
 
           cantidad: 7,
@@ -155,7 +317,52 @@
           penultimo_ingreso: "fehcaanteayer",
           cant_dias: 10,
         },
-      ],
-    }),
+      ];
+
+
+for(let p=0;p< items.length ;p++){
+  show[p]=true;
+
+}
+
+
+  export default {
+    data: () => ({
+      
+      items,
+
+      amount: null,
+
+        // Extracción de datos del JSON
+        comidas,
+     
+        foodsAll,
+        imgsAll,
+        namesAll,
+
+        
+
+    }
+    
+    
+    
+    
+    
+    ),
+
+
+
+    methods: {
+
+      sendMessage () {
+        //Aqui va el método para añadir los productos a las lista de de comidas personales
+      },
+      searchFilters(input, selector){
+        //Aquí va el método para filtrar los alimentos
+      },
+      editar(i){
+        show[i]=!show[i];
+      }
+    },
   }
 </script>
