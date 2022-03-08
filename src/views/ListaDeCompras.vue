@@ -26,7 +26,7 @@
                   <v-container>
                     <v-row>
                         <v-col
-                          v-for="(food,i) in foods"
+                          v-for="(item,i) in items"
                           position= relative
                           :key="i"
                           cols="4">
@@ -165,9 +165,9 @@
                         </v-col>
                         <v-col cols="6" class="pa-0 pl-3 ml-3">
                           <v-text-field
-                            v-model="amount"
+                            v-model="item.amount"
                             label="Peso"
-                            :key="i"
+                            :id="item.id"
                             suffix="Kg"
                             append-outer-icon="mdi-plus"
                             @click:append-outer="sendMessage"
@@ -220,7 +220,11 @@ for(let k=0; k<comidas.menestras.length;k++){
 }
 foodsAll = foodsAll.concat(Fruits);
 
+for(let l=0; l<foodsAll.length; l++){
+  foodsAll[l].amount = ""; 
+}
 
+console.log(foodsAll);
 
 export default {
   name: 'ListaCompras',
