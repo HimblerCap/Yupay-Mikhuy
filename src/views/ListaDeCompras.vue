@@ -26,7 +26,7 @@
                   <v-container>
                     <v-row>
                         <v-col
-                          v-for="(food,i) in foods"
+                          v-for="(item,i) in items"
                           position= relative
                           :key="i"
                           cols="4">
@@ -82,9 +82,7 @@
                                   </v-card-actions>
                                 </v-card>
                               </v-expand-transition>
-                            </v-card>
-
-                          
+                            </v-card>           
                         </v-col>
                     </v-row>
                   </v-container>
@@ -146,49 +144,43 @@
       </v-col>
       <v-row>
           <v-col  justify="center" align="center" cols="12" class="pa-0">
-            <v-col 
-            cols="12"
-            class="pa-1"
-            v-for="(food,i) in foods"
-            :key="i"
-            position=relative
-            >
-              <v-card outlined>
-                <v-col cols="11" class="ma-0 pa-0 ">
-                  <v-row justify="center" align="center">
-                    <v-col cols="3" justify="center" align="center" class="pa-0 pl-1">
-                    <v-card class="pa-1" flat>
-                      <v-img
-                      max-width="70"
-                      max-hight="40"
-                      :src="food.images[0]"
-                      ></v-img>
-                    </v-card> 
-                  </v-col>
-                  <v-col cols="9" class="ma-0 pa-1">
+            <v-row v-for="(item,i) in items" :key="i">
+              <v-col cols="12" class="pa-1">
+                <v-card outlined>
+                  <v-col cols="11" class="ma-0 pa-0 ">
                     <v-row justify="center" align="center">
-                      <v-col cols="4" class="pa-0 ml-3">
-                          <h5 style="font-family: 'Lato', sans-serif;">{{food.name | capitalize}}</h5>
-                      </v-col>
-                      <v-col cols="6" class="pa-0 pl-3 ml-3">
-                        <v-text-field
-                          v-model="amount"
-                          label="Peso"
-                          :key="i"
-                          suffix="Kg"
-                          append-outer-icon="mdi-plus"
-                          @click:append-outer="sendMessage"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="0" class="pa-0">
-
-                      </v-col>
+                      <v-col cols="3" justify="center" align="center" class="pa-0 pl-1">
+                      <v-card class="pa-1" flat>
+                        <v-img
+                        max-width="70"
+                        max-hight="40"
+                        :src="item.images[0]"
+                        ></v-img>
+                      </v-card> 
+                    </v-col>
+                    <v-col cols="9" class="ma-0 pa-1">
+                      <v-row justify="center" align="center">
+                        <v-col cols="4" class="pa-0 ml-3">
+                            <h5 style="font-family: 'Lato', sans-serif;">{{item.name | capitalize}}</h5>
+                        </v-col>
+                        <v-col cols="6" class="pa-0 pl-3 ml-3">
+                          <v-text-field
+                            v-model="item.amount"
+                            label="Peso"
+                            suffix="Kg"
+                            append-outer-icon="mdi-plus"
+                            @click:append-outer="sendMessage"
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="0" class="pa-0">
+                        </v-col>
+                      </v-row>
+                    </v-col>
                     </v-row>
-                  </v-col>
-                  </v-row>
-                </v-col>  
-              </v-card>
-            </v-col>
+                  </v-col>  
+                </v-card>
+              </v-col>
+            </v-row>
           </v-col>
         </v-row>
     </v-container>
@@ -198,7 +190,6 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
 
 // let comidas = null;
 // fetch('https://rickandmortyapi.com/api/character/137')
@@ -212,13 +203,34 @@ import {mapGetters} from 'vuex';
 //             console.log(err);
 //           });
 
+// Agregando el Filtro
+let comidas = require('../database/prueba_tottus.json');
+
+let Fruits = [], Vegetables = [], Stews = [], foodsAll = [];
+
+for(let i=0; i<comidas.frutas.length;i++){
+  Fruits[i] = comidas.frutas[i];
+}
+for(let j=0; j<comidas.verduras.length;j++){
+  Vegetables[j] = comidas.verduras[j];
+}
+for(let k=0; k<comidas.menestras.length;k++){
+  Stews[k] = comidas.menestras[k];
+}
+foodsAll = foodsAll.concat(Vegetables);
+
+for(let l=0; l<foodsAll.length; l++){
+  foodsAll[l].amount = ""; 
+}
+
 
 export default {
   name: 'ListaCompras',
+
   data () {
     return {
-        // Variables a guardar en el JSON MisAlimentos
-        amount: null,
+        foodsAll,
+        search: '',
 
         // Mostrar V-cards en Desktop
         reveal: false,
@@ -227,45 +239,26 @@ export default {
         categoryButtons: 'center',
       }
     },
-  computed: {
-    search: {
-      get () {
-        return this.$store.state.filter.query;
+    computed: {
+      items() {
+        return foodsAll.filter(item => {
+          return item.name.toLowerCase().includes(this.search.toLowerCase());
+        });
       },
-      set (val) {
-        this.$store.commit('setQuery',val);
-      }
     },
-    available: {
-      get () {
-        return this.$store.state.filter.available;
+    filters: {
+          capitalize: function (value) {
+            if (!value) return ''
+            value = value.toString()
+            return value.charAt(0).toUpperCase() + value.slice(1)
+          }
       },
-      set () {
-        this.$store.commit('setAvailable')
-      }
+    methods: {
+      sendMessage () {
+        
+        console.log(foodsAll)
+      },
     },
-    ...mapGetters({
-      foods : 'filteredFoods'
-    })
-  },
-  props: {
-    foods: {
-      type: Object,
-      required: true,
-    }
-  },
-  methods: {
-    sendMessage () {
-      //Aqui va el método para añadir los productos a las lista de de comidas personales
-    },
-  },
-  filters: {
-    capitalize: function (value) {
-      if (!value) return ''
-      value = value.toString()
-      return value.charAt(0).toUpperCase() + value.slice(1)
-    }
-  }
 }
 </script>
 <style>
