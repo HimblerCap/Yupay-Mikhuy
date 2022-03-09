@@ -167,7 +167,6 @@
                           <v-text-field
                             v-model="item.amount"
                             label="Peso"
-                            :id="item.id"
                             suffix="Kg"
                             append-outer-icon="mdi-plus"
                             @click:append-outer="sendMessage"
@@ -224,7 +223,6 @@ for(let l=0; l<foodsAll.length; l++){
   foodsAll[l].amount = ""; 
 }
 
-console.log(foodsAll);
 
 export default {
   name: 'ListaCompras',
@@ -233,8 +231,6 @@ export default {
     return {
         foodsAll,
         search: '',
-        // Variables a guardar en el JSON MisAlimentos
-        amount: null,
 
         // Mostrar V-cards en Desktop
         reveal: false,
@@ -259,7 +255,8 @@ export default {
       },
     methods: {
       sendMessage () {
-        //Aqui va el método para añadir los productos a las lista de de comidas personales
+        
+        console.log(foodsAll)
       },
     },
 }
