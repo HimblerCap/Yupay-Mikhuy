@@ -21,12 +21,12 @@
             <v-card class="mx-auto"
               width="320"
               height="380">
-                <div class="d-flex flex-no-wrap justify-space-between">
+                <div class="d-flex flex-no-wrap justify-start ">
               <div>
                 <v-card-title
                   class="text-h5"
-                  v-text="Fruta"
-                ></v-card-title> <!-- item.tipo -->
+                  
+                >{{item.tipo}}</v-card-title> <!-- item.tipo -->
 
                 <v-card-subtitle v-text="item.name"></v-card-subtitle>
               </div>
@@ -214,7 +214,7 @@
           width="100%"
           min-height="100px"
           class="pa-2 my-2">
-            <div class="d-flex flex-no-wrap justify-space-around "  justify="center">
+            <div class="d-flex flex-no-wrap justify-start align-center"  >
             <v-avatar
              class="ma-0"
                 size="100"
@@ -233,8 +233,8 @@
                   class="ma-0 pa-0"
                   
                 >
-                Fruta <v-spacer></v-spacer> 
-                <v-icon v-if="item.cant_dias > 5" 
+                {{item.tipo}} <v-spacer></v-spacer> 
+                <v-icon v-show="item.cant_dias > 5" 
                   dark color="#FF891C" 
                   large>
                   mdi-alert
@@ -247,13 +247,59 @@
                 <v-card-text  class="ma-0 pb-2 px-0">Inventario: 3 kg de {{item.name}}</v-card-text>
 
                 <div align = "center">
+                  <v-card-actions>
                 <v-btn
                     small
                 depressed
                 color="#C4C4C4"
+                @click="editar(i,show)"
                 >
                     MÁS INFORMACIÓN
                 </v-btn>
+                </v-card-actions>
+
+
+                <v-expand-transition>
+                    <v-card
+                      v-show="show[i] == false"
+                      width="100%"
+                      height="100%"
+                      class="pa-2 ma-0  transition-fast-in-fast-out v-card--reveal"
+                    >
+                    <v-container class="ma-0 pa-0">
+                      <v-card-text class="pb-0">
+                        <p class="ma-0">
+                          Penúltimo ingreso: {{item.penultimo_ingreso}}
+                        </p>
+                        <p  class="ma-0">
+                          Último ingreso: {{item.ultimo_ingreso}}
+                        </p>
+                        <p class="ma-0">
+                          Número de días: {{item.cant_dias}}
+                        </p>
+                        
+                      </v-card-text>
+                      </v-container>
+                      <v-card-actions class="pt-0">
+                        <v-container class="align-center justify-center">
+                        <v-btn
+                          
+                          small
+                          depressed
+                          color="#C4C4C4"
+                          @click="editar(i,show)"
+
+                          
+                
+                
+                        >
+                          Close
+                        </v-btn>
+                        </v-container>
+                      </v-card-actions>
+                    </v-card>
+    </v-expand-transition>
+
                 </div>
             </div>
 
@@ -291,7 +337,7 @@ foodsAll = foodsAll.concat(Stews);
 
 
 
-let show =[];
+var show =[];
 let items= [
         {
           name: 'Melon coquito',
@@ -321,16 +367,16 @@ let items= [
 
 
 for(let p=0;p< items.length ;p++){
-  show[p]=true;
+  show[p]=false;
 
 }
 
 
   export default {
     data: () => ({
-      
+      show,
       items,
-
+      
       amount: null,
 
         // Extracción de datos del JSON
@@ -360,9 +406,23 @@ for(let p=0;p< items.length ;p++){
       searchFilters(input, selector){
         //Aquí va el método para filtrar los alimentos
       },
-      editar(i){
-        show[i]=!show[i];
+      editar(i,show){
+        show[i] =!show[i];
+        console.log(show);
+        console.log(i);
       }
+      
     },
   }
 </script>
+
+
+<style>
+.v-card--reveal {
+  bottom: 0;
+  opacity: 1 !important;
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+</style>
