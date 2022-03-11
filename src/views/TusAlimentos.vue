@@ -21,14 +21,14 @@
             <v-card class="mx-auto"
               width="320"
               height="380">
-                <div class="d-flex flex-no-wrap justify-start ">
+                <div class="d-flex flex-no-wrap justify-space-between ">
               <div>
                 <v-card-title
-                  class="text-h5"
+                  class="text-h5 titlemob"
                   
-                >{{item.tipo}}</v-card-title> <!-- item.tipo -->
+                >{{item.tipo}}</v-card-title> 
 
-                <v-card-subtitle v-text="item.name"></v-card-subtitle>
+                <v-card-subtitle class="subtitlemob">{{item.name}}</v-card-subtitle>
               </div>
 
                 <v-avatar
@@ -47,12 +47,12 @@
 
               <div>
                 <v-card color="#F3C892">
-                    <v-card-text>Inventario: <!--  {{item.cantidad}} {{item.unidad}} de {{item.name}} --> 1 kg de {{item.name}} </v-card-text>
+                    <v-card-text class="textmob">Inventario:  {{item.cantidad}} {{item.unidad}} de {{item.name}}  </v-card-text>
                 </v-card>
 
               </div>
-              <!-- <v-alert v-if="item.cant_dias > 5" -->
-              <v-alert v-if="4 > 5"
+              <v-alert v-if="item.cant_dias > 5" 
+              
               
                     
                 type="error"
@@ -60,7 +60,7 @@
                 dense
                 class="mx-2 mt-4"
                 >
-                <!--La {{item.tipo}} tiene {{item.cant_dias}} días almacenada.-->
+                La {{item.tipo}} tiene {{item.cant_dias}} días almacenada.
                   
               </v-alert>
 
@@ -230,7 +230,7 @@
             </v-avatar>
             <div>
               <v-card-title
-                  class="ma-0 pa-0"
+                  class="ma-0 pa-0 titlemob "
                   
                 >
                 {{item.tipo}} <v-spacer></v-spacer> 
@@ -243,16 +243,17 @@
                 </v-card-title> <!-- item.tipo -->
 
                 <v-card-subtitle 
-                class="ma-0 pa-0" v-text="item.name"></v-card-subtitle>
-                <v-card-text  class="ma-0 pb-2 px-0">Inventario: 3 kg de {{item.name}}</v-card-text>
+                class="ma-0 pa-0 subtitlemob" v-text="item.name"></v-card-subtitle>
+                <v-card-text  class="textmob" >Inventario: 3 kg de {{item.name}}</v-card-text>
 
                 <div align = "center">
                   <v-card-actions>
                 <v-btn
+                v-model= "item.statu"
                     small
                 depressed
                 color="#C4C4C4"
-                @click="editar(i,show)"
+                @click="editar(i)"
                 >
                     MÁS INFORMACIÓN
                 </v-btn>
@@ -261,13 +262,13 @@
 
                 <v-expand-transition>
                     <v-card
-                      v-show="show[i] == false"
+                      v-if="item.statu == false"
                       width="100%"
                       height="100%"
                       class="pa-2 ma-0  transition-fast-in-fast-out v-card--reveal"
                     >
                     <v-container class="ma-0 pa-0">
-                      <v-card-text class="pb-0">
+                      <v-card-text class="pb-0 textmob">
                         <p class="ma-0">
                           Penúltimo ingreso: {{item.penultimo_ingreso}}
                         </p>
@@ -287,13 +288,13 @@
                           small
                           depressed
                           color="#C4C4C4"
-                          @click="editar(i,show)"
+                          @click="editar(i)"
 
                           
                 
                 
                         >
-                          Close
+                          CERRAR
                         </v-btn>
                         </v-container>
                       </v-card-actions>
@@ -350,6 +351,7 @@ let items= [
           ultimo_ingreso: "fechaayer",
           penultimo_ingreso: "fehcaanteayer",
           cant_dias: 1,
+          statu: true,
         },
         {
           name: 'maracuy\u00e1',
@@ -362,12 +364,13 @@ let items= [
           ultimo_ingreso: "fechaayer",
           penultimo_ingreso: "fehcaanteayer",
           cant_dias: 10,
+          statu: true,
         },
       ];
 
 
 for(let p=0;p< items.length ;p++){
-  show[p]=false;
+  show[p]=true;
 
 }
 
@@ -406,10 +409,9 @@ for(let p=0;p< items.length ;p++){
       searchFilters(input, selector){
         //Aquí va el método para filtrar los alimentos
       },
-      editar(i,show){
-        show[i] =!show[i];
-        console.log(show);
-        console.log(i);
+      editar: function (i){
+        this.items[i].statu =!this.items[i].statu;
+        
       }
       
     },
@@ -425,4 +427,24 @@ for(let p=0;p< items.length ;p++){
   left: 0;
   width: 100%;
 }
+.titlemob {
+  font-style:italic !important;
+  font-weight: 300 !important;
+  font-size: 1.25rem;
+}
+
+.subtitlemob{
+  font-weight: 700 !important;
+  font-size: 1.45rem;
+  color: black !important;
+}
+
+
+.textmob{
+  margin: 0 !important; 
+  padding: 8px 0px  !important;
+  font-size: 0.975rem !important;
+  
+}
+
 </style>
