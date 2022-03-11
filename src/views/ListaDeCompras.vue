@@ -143,7 +143,7 @@
           
       </v-col>
       <v-row>
-          <v-col  justify="center" align="center" cols="12" class="pa-0">
+          <v-col justify="center" align="center" cols="12" class="pa-0">
             <v-row v-for="(item,i) in items" :key="i">
               <v-col cols="12" class="pa-1">
                 <v-card outlined>
@@ -165,12 +165,12 @@
                           </v-col>
                           <v-col cols="6" class="pa-0 pl-3 ml-3">
                             <v-text-field
-                              v-model="item.amount"
+                              v-model="item.quantity"
                               label="Peso"
                               suffix="Kg"
                               append-outer-icon="mdi-plus"
                               @click:append-outer="sendMessage"
-                            ></v-text-field>
+                            ></v-text-field>                 
                           </v-col>
                           <v-col cols="0" class="pa-0">
                           </v-col>
@@ -220,17 +220,25 @@ for(let k=0; k<comidas.menestras.length;k++){
 foodsAll = foodsAll.concat(Vegetables);
 
 for(let l=0; l<foodsAll.length; l++){
-  foodsAll[l].amount = ""; 
+  foodsAll[l].quantity = ""; 
 }
+
 
 
 export default {
   name: 'ListaCompras',
-
   data () {
     return {
+        // Variables para el filtro
         foodsAll,
         search: '',
+
+        // Variables para capturar datos del producto
+        products: [],
+        product: {
+          quantity: '',
+          name: ''
+        },
 
         // Mostrar V-cards en Desktop
         reveal: false,
@@ -255,9 +263,23 @@ export default {
       },
     methods: {
       sendMessage () {
-        
-        console.log(foodsAll)
+        let product = this.product
+        let products = this.products
+        for(let m=0; m<this.foodsAll.length;m++){
+            if(this.foodsAll[m].quantity){
+              product.name = foodsAll[m].name
+              product.quantity = foodsAll[m].quantity
+              products.push(product)
+            } 
+        }
+        this.clearMessage()
+        console.log(products)
       },
+      clearMessage() {
+        for(let l=0; l<foodsAll.length; l++){
+          foodsAll[l].quantity = ""; 
+        }
+      }
     },
 }
 </script>
