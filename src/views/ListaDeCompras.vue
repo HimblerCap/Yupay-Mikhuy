@@ -165,7 +165,7 @@
                           </v-col>
                           <v-col cols="6" class="pa-0 pl-3 ml-3">
                             <v-text-field
-                              v-model="item.quantity"
+                              v-model.number="item.quantity"
                               label="Peso"
                               suffix="Kg"
                               append-outer-icon="mdi-plus"
