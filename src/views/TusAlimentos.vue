@@ -24,11 +24,11 @@
                 <div class="d-flex flex-no-wrap justify-space-between ">
               <div>
                 <v-card-title
-                  class="text-h5 titlemob"
+                  class="text-h5 pb-2 titledesk"
                   
                 >{{item.tipo}}</v-card-title> 
 
-                <v-card-subtitle class="subtitlemob">{{item.name}}</v-card-subtitle>
+                <v-card-subtitle class="mt-1 subtitledesk">{{item.name}}</v-card-subtitle>
               </div>
 
                 <v-avatar
@@ -46,8 +46,12 @@
               </div>
 
               <div>
-                <v-card color="#F3C892">
-                    <v-card-text class="textmob">Inventario:  {{item.cantidad}} {{item.unidad}} de {{item.name}}  </v-card-text>
+                <v-card
+                class="align-center justify-center"
+                 tile
+                 elevation="0"
+                 color="#F3C892">
+                    <v-card-text class="textdesk ">Inventario:  {{item.cantidad}} {{item.unidad}} de {{item.name}}  </v-card-text>
                 </v-card>
 
               </div>
@@ -58,7 +62,7 @@
                 type="error"
                 color = "red"
                 dense
-                class="mx-2 mt-4"
+                class="mx-1 mt-2"
                 >
                 La {{item.tipo}} tiene {{item.cant_dias}} días almacenada.
                   
@@ -265,23 +269,49 @@
                       v-if="item.statu == false"
                       width="100%"
                       height="100%"
-                      class="pa-2 ma-0  transition-fast-in-fast-out v-card--reveal"
+                      class="py-2 px-1 ma-0  transition-fast-in-fast-out v-card--reveal d-flex flex-column align-center"
                     >
-                    <v-container class="ma-0 pa-0">
-                      <v-card-text class="pb-0 textmob">
-                        <p class="ma-0">
-                          Penúltimo ingreso: {{item.penultimo_ingreso}}
-                        </p>
-                        <p  class="ma-0">
-                          Último ingreso: {{item.ultimo_ingreso}}
-                        </p>
-                        <p class="ma-0">
-                          Número de días: {{item.cant_dias}}
-                        </p>
+                    <div class="ma-0 pa-0 backstyle " >
+                      
+                      <v-card-text class="py-0 textmob ">
+                        <v-row>
+                          <v-col class="py-1 ">
+                            Penúltimo ingreso:
+                          </v-col>
+
+                          <v-col class="py-1 ">
+                            {{item.penultimo_ingreso}}
+                          </v-col>
+                        </v-row>
+
+                        <v-row>
+                          <v-col class="py-1 ">
+                            Último ingreso:
+                          </v-col>
+
+                          <v-col class="py-1 ">
+                            {{item.ultimo_ingreso}}
+                          </v-col>
+                        </v-row>
+
+                        <v-row>
+                          <v-col class="py-1 ">
+                            Número de días:
+                          </v-col>
+
+                          <v-col class="py-1 ">
+                            {{item.cant_dias}}
+                          </v-col>
+                        </v-row>
+                        
                         
                       </v-card-text>
-                      </v-container>
-                      <v-card-actions class="pt-0">
+                      
+                      
+
+
+                      </div>
+                      <v-card-actions class="pa-0">
                         <v-container class="align-center justify-center">
                         <v-btn
                           
@@ -338,7 +368,7 @@ foodsAll = foodsAll.concat(Stews);
 
 
 
-var show =[];
+var show =['Penultimo ingreso', 'Ultimo ingreso', 'numero de dias'];
 let items= [
         {
           name: 'Melon coquito',
@@ -369,10 +399,6 @@ let items= [
       ];
 
 
-for(let p=0;p< items.length ;p++){
-  show[p]=true;
-
-}
 
 
   export default {
@@ -440,11 +466,37 @@ for(let p=0;p< items.length ;p++){
 }
 
 
+.titledesk {
+  font-style:italic !important;
+  font-weight: 300 !important;
+  font-size: 1.45rem;
+}
+
+.subtitledesk{
+  font-weight: 700 !important;
+  font-size: 1.65rem;
+  color: black !important;
+}
+
+
 .textmob{
   margin: 0 !important; 
   padding: 8px 0px  !important;
   font-size: 0.975rem !important;
   
+}
+
+.textdesk{
+  margin: 0 !important; 
+  padding: 8px 0px  !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  
+}
+.backstyle{
+  width: 100% !important;
+  align-items: center;
+  align-self: center;
 }
 
 </style>
