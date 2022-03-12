@@ -165,7 +165,7 @@
                           </v-col>
                           <v-col cols="6" class="pa-0 pl-3 ml-3">
                             <v-text-field
-                              v-model.number="item.quantity"
+                              v-model="item.quantity"
                               label="Peso"
                               suffix="Kg"
                               append-outer-icon="mdi-plus"
@@ -190,6 +190,7 @@
 </template>
 
 <script>
+import { prod } from '@tensorflow/tfjs-core';
 
 // let comidas = null;
 // fetch('https://rickandmortyapi.com/api/character/137')
@@ -236,7 +237,8 @@ export default {
         // Variables para capturar datos del producto
         products: [],
         product: {
-          quantity: '',
+          quantity_added_now: '',
+          quantity_added_last: '',
           name: ''
         },
 
@@ -268,7 +270,10 @@ export default {
         for(let m=0; m<this.foodsAll.length;m++){
             if(this.foodsAll[m].quantity){
               product.name = foodsAll[m].name
-              product.quantity = foodsAll[m].quantity
+              product.quantity_added_now = Number(foodsAll[m].quantity)
+              if(product.name == foodsAll[m].name){
+                product.quantity_added_last = Number(product.quantity_added_now) + Number(product.quantity_added_last)
+              }
               products.push(product)
             } 
         }
