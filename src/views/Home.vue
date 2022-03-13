@@ -15,18 +15,6 @@
 </template>
 
 <script>
-import * as tf from '@tensorflow/tfjs';
-import { file2LocalStorage } from '../utils/utils';
-
-async function load(){
-  file2LocalStorage();
-  const model = await tf.loadLayersModel('localstorage://recieps');
-  //model.summary();
-}
-
-load();
-
-
 
 export default {
   name: 'Home',
@@ -38,8 +26,6 @@ export default {
     HomeViewPhone: ()=>import('@/components/Home/HomeViewPhone')
   }
 }
-
-
 </script>
 <style>
   .fixed{
