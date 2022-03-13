@@ -267,17 +267,17 @@ export default {
       sendMessage () {
         let product = this.product
         let products = this.products
+        let respaldo = this.foodsAll
+        
         for(let m=0; m<this.foodsAll.length;m++){
             if(this.foodsAll[m].quantity){
               product.name = foodsAll[m].name
               product.quantity_added_now = Number(foodsAll[m].quantity)
-              if(product.name == foodsAll[m].name){
-                product.quantity_added_last = Number(product.quantity_added_now) + Number(product.quantity_added_last)
-              }
-              products.push(product)
+              product.quantity_added_last = Number(product.quantity_added_now) + Number(product.quantity_added_last)
+              products.push(product)        
             } 
         }
-        this.clearMessage()
+        this.clearMessage()        
         console.log(products)
       },
       clearMessage() {
