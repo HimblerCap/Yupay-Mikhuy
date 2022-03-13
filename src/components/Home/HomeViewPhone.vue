@@ -3,16 +3,17 @@
         <v-row align="center" justify="center" fluid class="fill-height">
             <v-container class="welcome-card">
                 <img src="@/assets/img/dish-welcome.png" alt="Welcome Picture" class="welcome-image">
-                <v-div class="welcome-message">
+                <div class="welcome-message">
                     Welcome
                     <br>
                     <br>
                     Gengis Gutierrez!
-                </v-div>
+                </div>
             </v-container>
         </v-row>
         <v-row align="center" fluid class="fill-height pt-10">
             <h2 class="pt-5">Platos que puedes preparar</h2>
+
             <v-card
                 class="mx-auto my-3"
                 max-width="300"
@@ -48,6 +49,28 @@
     </v-container>
 </template>
 
+<script>
+import * as tf from '@tensorflow/tfjs';
+import { file2LocalStorage } from '../../utils/utils';
+
+
+async function load(){
+  file2LocalStorage();
+  const model = await tf.loadLayersModel('localstorage://recieps');
+}
+
+load();
+
+export default {
+  name: 'HomeViewPhone',
+  data () {
+    return {
+    }
+  },
+}
+
+</script>
+
 <style>
 .welcome-card{
     position: relative;
@@ -60,14 +83,13 @@
 }
 .welcome-image{
     position: absolute;
-    width: 95px;
-    top: 17px;
-    height: 97px;
-    left: 25px;
+    width: 29%;
+    top: 16%;
+    left: 5%;
 }
 .welcome-message{
     position: absolute;
-    left: 135px;
+    left: 40%;
     top: 33.5px;
     width: 187px;
     height: 64px;
