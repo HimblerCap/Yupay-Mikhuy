@@ -236,11 +236,6 @@ export default {
 
         // Variables para capturar datos del producto
         products: [],
-        product: {
-          quantity_added_now: '',
-          quantity_added_last: '',
-          name: ''
-        },
 
         // Mostrar V-cards en Desktop
         reveal: false,
@@ -264,17 +259,31 @@ export default {
           }
       },
     methods: {
-      sendMessage () {
-        let product = this.product
-        let products = this.products
-        let respaldo = this.foodsAll
-        
+      searchProduct(products, findproduct){
+        for(let i=0; i<products.length;i++){
+          if(Object.values(products[i])[0] === findproduct){
+            return [true, i]
+          } 
+          else{
+            return [false, 0]
+          }
+        }
+      },
+      addProduct(products, m){
+        let product = {name: '', quantity_added_now: '', quantity_added_last: ''}
+        product.name = foodsAll[m].name
+        product.quantity_added_now = Number(foodsAll[m].quantity)
+        products.push(product)
+      },
+      modifyProduct(){
+        console.log("Se modifica producto")
+      },
+      sendMessage(){
+        let products = this.products        
         for(let m=0; m<this.foodsAll.length;m++){
-            if(this.foodsAll[m].quantity){
-              product.name = foodsAll[m].name
-              product.quantity_added_now = Number(foodsAll[m].quantity)
-              product.quantity_added_last = Number(product.quantity_added_now) + Number(product.quantity_added_last)
-              products.push(product)        
+            if(this.foodsAll[m].quantity){    
+              let helper = this.searchProduct(products, foodsAll[m].name)
+              this.addProduct(products, m) 
             } 
         }
         this.clearMessage()        
