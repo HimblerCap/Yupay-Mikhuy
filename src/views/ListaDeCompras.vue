@@ -124,7 +124,7 @@
               class="pt-3 ml-n2"
               group
             >
-              <v-btn class="classification-cards" retain-focus-on-click	@click="setCarnes">
+              <v-btn class="classification-cards" retain-focus-on-click>
                 <h6>Carnes</h6>
               </v-btn>
 
@@ -191,24 +191,15 @@
 
 <script>
 import { prod } from '@tensorflow/tfjs-core';
+import { data } from '@tensorflow/tfjs';
+import {methodToGet} from '../utils/utils.js'
 
-let Carnes = [];
 let foodsAll = [];
-var apiUrl = 'https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/';
-
-fetch( apiUrl + "carnes")
-  .then( res => {
-    return res.json();
-  })
-  .then((data) => {
-    Carnes = data;
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+methodToGet('carnes')
 
 
-// Agregando el Filtro
+
+
 // let comidas = require('../database/prueba_tottus.json');
 
 // let Fruits = [], Vegetables = [], Stews = [], foodsAll = [];
@@ -222,11 +213,13 @@ fetch( apiUrl + "carnes")
 // for(let k=0; k<comidas.menestras.length;k++){
 //   Stews[k] = comidas.menestras[k];
 // }
-foodsAll = foodsAll.concat(Carnes);
+// foodsAll = foodsAll.concat(Carnes);
+// 
+// for(let l=0; l<foodsAll.length; l++){
+//   foodsAll[l].quantity = ""; 
+// }
 
-for(let l=0; l<foodsAll.length; l++){
-  foodsAll[l].quantity = ""; 
-}
+
 
 
 
@@ -313,13 +306,10 @@ export default {
       setCarnes(){
       },
       setVegetales(){
-
       },
       setFrutas(){
-
       },
       setMenestras(){
-
       }
     },
 }

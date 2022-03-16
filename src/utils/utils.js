@@ -47,6 +47,20 @@ function file2LocalStorage(){
     localStorage.setItem('tensorflowjs_models/recieps/weight_specs', model.weightSpecs);
 }
 
+async function methodToGet(typeOfProduct){
+    const corsAnywhere = 'https://cors-anywhere.herokuapp.com/';
+    const yourUrl = 'https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/'+ typeOfProduct
+    fetch(corsAnywhere + yourUrl, {
+        method: 'GET',
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        }),
+    })
+        .then((response) => response.json())
+        .then((data) =>  console.log(data))
+        .catch((err) => console.log(err));
+}
 
-export { getData, data2Tensor, file2LocalStorage};
+export { getData, data2Tensor, file2LocalStorage, methodToGet};
 
