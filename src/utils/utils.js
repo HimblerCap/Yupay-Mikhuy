@@ -27,8 +27,8 @@ function data2Tensor(data) {
 
     const labels = data.map((d) => d.Label);    
 
-    const valuesTensor = tf.tensor2d(values, [values.length, 158]);
-    const labelTensor = tf.oneHot(tf.tensor1d(labels).toInt(), 53);
+    const valuesTensor = tf.tensor2d(values, [values.length, 106]);
+    const labelTensor = tf.oneHot(tf.tensor1d(labels).toInt(), 51);
 
     return {
         inputs: valuesTensor,
