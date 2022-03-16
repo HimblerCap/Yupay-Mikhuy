@@ -124,19 +124,19 @@
               class="pt-3 ml-n2"
               group
             >
-              <v-btn class="classification-cards" retain-focus-on-click	>
-                <h6>Todo</h6>
+              <v-btn class="classification-cards" retain-focus-on-click	@click="setCarnes">
+                <h6>Carnes</h6>
               </v-btn>
 
-              <v-btn>
+              <v-btn class="classification-cards" @click="setVegetales">
                 <h6>Vegetales</h6>
               </v-btn>
 
-              <v-btn>
+              <v-btn class="classification-cards" @click="setFrutas">
                 <h6>Frutas</h6>
               </v-btn>
 
-              <v-btn>
+              <v-btn class="classification-cards" @click="setMenestras">
                 <h6>Menestras</h6>
               </v-btn>
           </v-btn-toggle>
@@ -192,33 +192,37 @@
 <script>
 import { prod } from '@tensorflow/tfjs-core';
 
-// let comidas = null;
-// fetch('https://rickandmortyapi.com/api/character/137')
-//           .then( res => {
-//             return res.json();
-//           })
-//           .then((data) => {
-//             comidas = data;
-//           })
-//           .catch((err) => {
-//             console.log(err);
-//           });
+let Carnes = [];
+let foodsAll = [];
+var apiUrl = 'https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/';
+
+fetch( apiUrl + "carnes")
+  .then( res => {
+    return res.json();
+  })
+  .then((data) => {
+    Carnes = data;
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 
 // Agregando el Filtro
-let comidas = require('../database/prueba_tottus.json');
+// let comidas = require('../database/prueba_tottus.json');
 
-let Fruits = [], Vegetables = [], Stews = [], foodsAll = [];
-
-for(let i=0; i<comidas.frutas.length;i++){
-  Fruits[i] = comidas.frutas[i];
-}
-for(let j=0; j<comidas.verduras.length;j++){
-  Vegetables[j] = comidas.verduras[j];
-}
-for(let k=0; k<comidas.menestras.length;k++){
-  Stews[k] = comidas.menestras[k];
-}
-foodsAll = foodsAll.concat(Vegetables);
+// let Fruits = [], Vegetables = [], Stews = [], foodsAll = [];
+// 
+// for(let i=0; i<comidas.frutas.length;i++){
+//   Fruits[i] = comidas.frutas[i];
+// }
+// for(let j=0; j<comidas.verduras.length;j++){
+//   Vegetables[j] = comidas.verduras[j];
+// }
+// for(let k=0; k<comidas.menestras.length;k++){
+//   Stews[k] = comidas.menestras[k];
+// }
+foodsAll = foodsAll.concat(Carnes);
 
 for(let l=0; l<foodsAll.length; l++){
   foodsAll[l].quantity = ""; 
@@ -260,30 +264,42 @@ export default {
       },
     methods: {
       searchProduct(products, findproduct){
-        for(let i=0; i<products.length;i++){
-          if(Object.values(products[i])[0] === findproduct){
-            return [true, i]
-          } 
-          else{
-            return [false, 0]
+        if(products.length != 0){
+          for(let i=0; i<products.length;i++){
+            if(Object.values(products[i])[0] === findproduct){
+              return [true, i]
+            } 
+            else{
+              return [false, 0]
+            }
           }
         }
+        else{
+          return [false, 0]
+        }  
       },
       addProduct(products, m){
         let product = {name: '', quantity_added_now: '', quantity_added_last: ''}
         product.name = foodsAll[m].name
         product.quantity_added_now = Number(foodsAll[m].quantity)
+        product.quantity_added_last = Number(product.quantity_added_now)
         products.push(product)
       },
-      modifyProduct(){
-        console.log("Se modifica producto")
+      modifyProduct(products, m, indice){
+        products[indice].quantity_added_now = Number(foodsAll[m].quantity)
+        products[indice].quantity_added_last = Number(products[indice].quantity_added_now) + Number(products[indice].quantity_added_last)
       },
       sendMessage(){
         let products = this.products        
         for(let m=0; m<this.foodsAll.length;m++){
             if(this.foodsAll[m].quantity){    
               let helper = this.searchProduct(products, foodsAll[m].name)
-              this.addProduct(products, m) 
+              if(helper[0]){
+                this.modifyProduct(products, m, helper[1])
+              }
+              else{
+                this.addProduct(products, m) 
+              }
             } 
         }
         this.clearMessage()        
@@ -293,6 +309,17 @@ export default {
         for(let l=0; l<foodsAll.length; l++){
           foodsAll[l].quantity = ""; 
         }
+      },
+      setCarnes(){
+      },
+      setVegetales(){
+
+      },
+      setFrutas(){
+
+      },
+      setMenestras(){
+
       }
     },
 }
