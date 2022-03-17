@@ -1,5 +1,5 @@
 import * as tf from '@tensorflow/tfjs';
-
+import axios from 'axios';
 
 //Get Data 
 async function getData(path){
@@ -47,19 +47,35 @@ function file2LocalStorage(){
     localStorage.setItem('tensorflowjs_models/recieps/weight_specs', model.weightSpecs);
 }
 
-async function methodToGet(typeOfProduct){
+function filterData(productsData){
+    let arrayTest = [];
+    productsData.forEach((lista) => {
+        lista.products.forEach((product) => {
+            let data = {
+                type: lista.type,
+                ...product
+            }
+            arrayTest.push(data)
+        })
+    })
+    return arrayTest
+}
+    
+
+function methodToGet(){
     const corsAnywhere = 'https://cors-anywhere.herokuapp.com/';
-    const yourUrl = 'https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/'+ typeOfProduct
-    fetch(corsAnywhere + yourUrl, {
+    const yourUrl = 'https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products';
+    axios
+        .get(corsAnywhere + yourUrl  , {
         method: 'GET',
         headers: new Headers({
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
         }),
     })
-        .then((response) => response.json())
-        .then((data) =>  console.log(data))
-        .catch((err) => console.log(err));
+        .then((response) => {
+            this.filterData(response.data)
+        })
 }
 
 export { getData, data2Tensor, file2LocalStorage, methodToGet};

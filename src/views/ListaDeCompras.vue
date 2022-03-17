@@ -192,11 +192,10 @@
 <script>
 import { prod } from '@tensorflow/tfjs-core';
 import { data } from '@tensorflow/tfjs';
+import axios from 'axios';
 import {methodToGet} from '../utils/utils.js'
 
 let foodsAll = [];
-methodToGet('carnes')
-
 
 
 
@@ -231,6 +230,9 @@ export default {
         foodsAll,
         search: '',
 
+        // Other variables
+        methodToGet,
+
         // Variables para capturar datos del producto
         products: [],
 
@@ -239,6 +241,12 @@ export default {
 
         // Mostrar categorias de comida
         categoryButtons: 'center',
+      }
+    },
+    mounted() {
+      this.foodsAll = this.methodToGet()
+      for(let l=0; l<this.foodsAll.length; l++){
+        this.foodsAll[l].quantity = ""; 
       }
     },
     computed: {
@@ -302,8 +310,6 @@ export default {
         for(let l=0; l<foodsAll.length; l++){
           foodsAll[l].quantity = ""; 
         }
-      },
-      setCarnes(){
       },
       setVegetales(){
       },

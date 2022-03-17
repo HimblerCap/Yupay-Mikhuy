@@ -12,6 +12,7 @@
     "@mapbox/node-pre-gyp": "^1.0.8",
     "@tensorflow/tfjs": "^3.14.0",
     "aws-sdk": "^2.1086.0",
+    "axios": "^0.26.1",
     "caniuse-lite": "^1.0.30001280",
     "core-js": "^3.6.5",
     "firebase": "^7.24.0",
