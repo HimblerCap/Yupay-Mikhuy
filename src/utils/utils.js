@@ -58,6 +58,9 @@ function filterData(productsData){
             arrayTest.push(data)
         })
     })
+    for(let l=0; l<arrayTest.length; l++){
+        arrayTest[l].quantity = ""; 
+    }
     return arrayTest
 }
     
@@ -71,12 +74,14 @@ function methodToGet(){
         headers: new Headers({
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
-        }),
-    })
+            }),
+        })
         .then((response) => {
-            this.filterData(response.data)
+            console.log(filterData(response.data))
+            return filterData(response.data) 
+            // this.filterData(response.data)
         })
 }
 
-export { getData, data2Tensor, file2LocalStorage, methodToGet};
+export { getData, data2Tensor, file2LocalStorage, methodToGet, filterData};
 

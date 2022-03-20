@@ -218,10 +218,6 @@ let foodsAll = [];
 //   foodsAll[l].quantity = ""; 
 // }
 
-
-
-
-
 export default {
   name: 'ListaCompras',
   data () {
@@ -244,10 +240,7 @@ export default {
       }
     },
     mounted() {
-      this.foodsAll = this.methodToGet()
-      for(let l=0; l<this.foodsAll.length; l++){
-        this.foodsAll[l].quantity = ""; 
-      }
+      this.methodToGet()
     },
     computed: {
       items() {
