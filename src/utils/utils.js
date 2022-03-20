@@ -65,22 +65,12 @@ function filterData(productsData){
 }
     
 
-function methodToGet(){
-    const corsAnywhere = 'https://cors-anywhere.herokuapp.com/';
-    const yourUrl = 'https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products';
-    axios
-        .get(corsAnywhere + yourUrl  , {
-        method: 'GET',
-        headers: new Headers({
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            }),
-        })
-        .then((response) => {
-            console.log(filterData(response.data))
-            return filterData(response.data) 
-            // this.filterData(response.data)
-        })
+function methodToGet(type = ""){
+    // let dataAPI = null
+    axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/" + type)
+      .then(response => {
+        return filterData(response.data)
+    })
 }
 
 export { getData, data2Tensor, file2LocalStorage, methodToGet, filterData};

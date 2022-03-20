@@ -124,7 +124,7 @@
               class="pt-3 ml-n2"
               group
             >
-              <v-btn class="classification-cards" retain-focus-on-click>
+              <v-btn class="classification-cards" retain-focus-on-click @click="setCarnes">
                 <h6>Carnes</h6>
               </v-btn>
 
@@ -223,11 +223,11 @@ export default {
   data () {
     return {
         // Variables para el filtro
-        foodsAll,
+        foodsAll: null,
         search: '',
 
         // Other variables
-        methodToGet,
+        //methodToGet,
 
         // Variables para capturar datos del producto
         products: [],
@@ -240,13 +240,26 @@ export default {
       }
     },
     mounted() {
-      this.methodToGet()
+      axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/carnes")
+      .then(response => {
+        this.foodsAll = response.data
+      })
     },
     computed: {
       items() {
-        return foodsAll.filter(item => {
-          return item.name.toLowerCase().includes(this.search.toLowerCase());
-        });
+          if (this.foodsAll) {
+            this.foodsAll.forEach(element => {
+              element.quantity = ""
+            });
+            return this.foodsAll.filter(item => {
+            return item.name.toLowerCase().includes(this.search.toLowerCase());
+          });
+          }else{
+            return foodsAll.filter(item => {
+            return item.name.toLowerCase().includes(this.search.toLowerCase());
+          });
+          }
+          
       },
     },
     filters: {
@@ -274,8 +287,9 @@ export default {
       },
       addProduct(products, m){
         let product = {name: '', quantity_added_now: '', quantity_added_last: ''}
-        product.name = foodsAll[m].name
-        product.quantity_added_now = Number(foodsAll[m].quantity)
+        console.log("Prueba: ", this.foodsAll[m].name);
+        product.name = this.foodsAll[m].name
+        product.quantity_added_now = Number(this.foodsAll[m].quantity)
         product.quantity_added_last = Number(product.quantity_added_now)
         products.push(product)
       },
@@ -304,11 +318,29 @@ export default {
           foodsAll[l].quantity = ""; 
         }
       },
+      setCarnes(){
+        axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/carnes")
+        .then(response => {
+          this.foodsAll = response.data
+        })
+      },
       setVegetales(){
+        axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/verduras")
+        .then(response => {
+          this.foodsAll = response.data
+        })
       },
       setFrutas(){
+        axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/frutas")
+        .then(response => {
+          this.foodsAll = response.data
+        })
       },
       setMenestras(){
+        axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/menestras")
+        .then(response => {
+          this.foodsAll = response.data
+        })
       }
     },
 }
