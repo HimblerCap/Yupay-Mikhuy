@@ -52,32 +52,15 @@
 <script>
 import * as tf from '@tensorflow/tfjs';
 import { file2LocalStorage } from '../../utils/utils';
-import { getData, data2Tensor } from '../../utils/utils';
-import { createModel, modelTraining } from '../../models/model';
 
 
-// async function load(){
-//   file2LocalStorage();
-//   const model = await tf.loadLayersModel('localstorage://recieps');
-// }
-
-//load();
-
-async function trainModel(){
-    //get data
-    const path = '@/database/train_set.json';
-    const data =  getData(path);
-
-    //transform data
-    const dataTransfor = data2Tensor(data);
-
-    //create model
-    const model = createModel();
-
-    //train model
-    modelTraining(model, dataTransfor.inputs, dataTransfor.labels)
-
+async function load(){
+   file2LocalStorage();
+   const model = await tf.loadLayersModel('localstorage://recieps');
+   model.summary();
 }
+
+load();
 
 export default {
   name: 'HomeViewPhone',
