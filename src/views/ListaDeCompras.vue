@@ -193,11 +193,6 @@
 import { prod } from '@tensorflow/tfjs-core';
 import { data } from '@tensorflow/tfjs';
 import axios from 'axios';
-import {methodToGet} from '../utils/utils.js'
-
-let foodsAll = [];
-
-
 
 // let comidas = require('../database/prueba_tottus.json');
 
@@ -223,7 +218,7 @@ export default {
   data () {
     return {
         // Variables para el filtro
-        foodsAll,
+        foodsAll: [],
         search: '',
 
         // Other variables
@@ -250,16 +245,18 @@ export default {
       },
     computed: {
       items() {
-          if (this.foodsAll) {
-            console.log(this.foodsAll)
-            return this.foodsAll.filter(item => {
+          return this.foodsAll.filter(item => {
             return item.name.toLowerCase().includes(this.search.toLowerCase());
-          });
-          }else{
-            return this.foodsAll.filter(item => {
-            return item.name.toLowerCase().includes(this.search.toLowerCase());
-          });
-          }
+          })
+      //    if (this.foodsAll) {
+      //      return this.foodsAll.filter(item => {
+      //      return item.name.toLowerCase().includes(this.search.toLowerCase());
+      //    });
+      //    }else{
+      //      return this.foodsAll.filter(item => {
+      //      return item.name.toLowerCase().includes(this.search.toLowerCase());
+      //    });
+      //    }
       },
     },
     filters: {
@@ -308,11 +305,11 @@ export default {
                 this.addProduct(products, m) 
               }
             } 
-        } 
-        this.clearMessage()             
+        }     
+        this.clearMessage()       
       },
       clearMessage() {
-        this.foodsAll.quantity = ''
+        console.log(this.products)
       },
       setCarnes(){
         axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/carnes")
