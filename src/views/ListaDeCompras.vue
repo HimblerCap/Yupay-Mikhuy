@@ -223,7 +223,7 @@ export default {
   data () {
     return {
         // Variables para el filtro
-        foodsAll: null,
+        foodsAll,
         search: '',
 
         // Other variables
@@ -243,23 +243,23 @@ export default {
       axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/carnes")
       .then(response => {
         this.foodsAll = response.data
-      })
-    },
+        for(let l=0; l<this.foodsAll.length; l++){
+          this.foodsAll[l].quantity = ""; 
+        }   
+      })     
+      },
     computed: {
       items() {
           if (this.foodsAll) {
-            this.foodsAll.forEach(element => {
-              element.quantity = ""
-            });
+            console.log(this.foodsAll)
             return this.foodsAll.filter(item => {
             return item.name.toLowerCase().includes(this.search.toLowerCase());
           });
           }else{
-            return foodsAll.filter(item => {
+            return this.foodsAll.filter(item => {
             return item.name.toLowerCase().includes(this.search.toLowerCase());
           });
           }
-          
       },
     },
     filters: {
@@ -287,21 +287,20 @@ export default {
       },
       addProduct(products, m){
         let product = {name: '', quantity_added_now: '', quantity_added_last: ''}
-        console.log("Prueba: ", this.foodsAll[m].name);
         product.name = this.foodsAll[m].name
         product.quantity_added_now = Number(this.foodsAll[m].quantity)
         product.quantity_added_last = Number(product.quantity_added_now)
         products.push(product)
       },
       modifyProduct(products, m, indice){
-        products[indice].quantity_added_now = Number(foodsAll[m].quantity)
+        products[indice].quantity_added_now = Number(this.foodsAll[m].quantity)
         products[indice].quantity_added_last = Number(products[indice].quantity_added_now) + Number(products[indice].quantity_added_last)
       },
       sendMessage(){
-        let products = this.products        
+        let products = this.products     
         for(let m=0; m<this.foodsAll.length;m++){
             if(this.foodsAll[m].quantity){    
-              let helper = this.searchProduct(products, foodsAll[m].name)
+              let helper = this.searchProduct(products, this.foodsAll[m].name)
               if(helper[0]){
                 this.modifyProduct(products, m, helper[1])
               }
@@ -309,37 +308,46 @@ export default {
                 this.addProduct(products, m) 
               }
             } 
-        }
-        this.clearMessage()        
-        console.log(products)
+        } 
+        this.clearMessage()             
       },
       clearMessage() {
-        for(let l=0; l<foodsAll.length; l++){
-          foodsAll[l].quantity = ""; 
-        }
+        this.foodsAll.quantity = ''
       },
       setCarnes(){
         axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/carnes")
         .then(response => {
           this.foodsAll = response.data
+          for(let l=0; l<this.foodsAll.length; l++){
+            this.foodsAll[l].quantity = ""; 
+          }
         })
       },
       setVegetales(){
         axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/verduras")
         .then(response => {
           this.foodsAll = response.data
+          for(let l=0; l<this.foodsAll.length; l++){
+            this.foodsAll[l].quantity = ""; 
+          }
         })
       },
       setFrutas(){
         axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/frutas")
         .then(response => {
           this.foodsAll = response.data
+          for(let l=0; l<this.foodsAll.length; l++){
+            this.foodsAll[l].quantity = ""; 
+          }
         })
       },
       setMenestras(){
         axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/menestras")
         .then(response => {
           this.foodsAll = response.data
+          for(let l=0; l<this.foodsAll.length; l++){
+            this.foodsAll[l].quantity = ""; 
+          }
         })
       }
     },
