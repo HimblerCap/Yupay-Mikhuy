@@ -23,12 +23,12 @@ export default new Vuex.Store({
     {
       text: 'Lista de compras',
       to:"/compras",
-      icon: 'kitchen',
+      icon: 'restaurant_menu',
     },
     {
       text: 'Mis alimentos',
       to:'/alimentos',
-      icon: 'restaurant_menu'
+      icon: 'kitchen'
     },
     {
       text: 'Recetas',

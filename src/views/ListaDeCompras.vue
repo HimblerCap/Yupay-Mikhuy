@@ -102,7 +102,66 @@
   <!-- Mobile view -->
   <v-container class="ma-0 pa-0 hidden-sm-and-up">
     <v-container fluid>
-      <h2>Lista de compras</h2>
+      <v-row justify="center" align="center">
+        <v-col cols="9" class="pt-2 pb-2" justify="start" align="start">
+          <h3>Productos del mercado</h3>
+        </v-col>
+        <v-col cols="3" class="pt-2 pb-2 " justify="end" align="end">
+          <v-dialog
+          v-model="dialog"
+          persistent>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                elevation="1"
+                fab
+                small
+                dark
+                color="orange darken-1"
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon dark>
+                  mdi-cart-outline
+                </v-icon>
+              </v-btn>
+            </template>
+            <v-card>
+              <v-card-title class="text-h6">
+                Lista de compras
+              </v-card-title>
+              <v-card-text>
+                <div class="lists">
+                    <ul>
+                        <li 
+                        v-for="(product, i) in products" 
+                        :key="i">
+                          {{ product.name | capitalize}}
+                          <span class="confirmProduct"> {{ product.quantity_added_last}} Kg</span>
+                        </li>
+                    </ul>
+                </div>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="green darken-1"
+                  text
+                  @click="dialog = false"
+                >
+                  Cerrar
+                </v-btn>
+                <v-btn
+                  color="green darken-1"
+                  text
+                  @click="confirmPorduct"
+                >
+                  Confirmar
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-col>
+      </v-row>
     </v-container>
     
     <v-container class="ma-0 pa-0">
@@ -194,24 +253,6 @@ import { prod } from '@tensorflow/tfjs-core';
 import { data } from '@tensorflow/tfjs';
 import axios from 'axios';
 
-// let comidas = require('../database/prueba_tottus.json');
-
-// let Fruits = [], Vegetables = [], Stews = [], foodsAll = [];
-// 
-// for(let i=0; i<comidas.frutas.length;i++){
-//   Fruits[i] = comidas.frutas[i];
-// }
-// for(let j=0; j<comidas.verduras.length;j++){
-//   Vegetables[j] = comidas.verduras[j];
-// }
-// for(let k=0; k<comidas.menestras.length;k++){
-//   Stews[k] = comidas.menestras[k];
-// }
-// foodsAll = foodsAll.concat(Carnes);
-// 
-// for(let l=0; l<foodsAll.length; l++){
-//   foodsAll[l].quantity = ""; 
-// }
 
 export default {
   name: 'ListaCompras',
@@ -221,11 +262,11 @@ export default {
         foodsAll: [],
         search: '',
 
-        // Other variables
-        //methodToGet,
-
         // Variables para capturar datos del producto
         products: [],
+        productsToSend: [],
+        //Other variables
+        dialog: false,
 
         // Mostrar V-cards en Desktop
         reveal: false,
@@ -240,6 +281,7 @@ export default {
         this.foodsAll = response.data
         for(let l=0; l<this.foodsAll.length; l++){
           this.foodsAll[l].quantity = ""; 
+          this.foodsAll[l].type = "carnes";
         }   
       })     
       },
@@ -248,15 +290,7 @@ export default {
           return this.foodsAll.filter(item => {
             return item.name.toLowerCase().includes(this.search.toLowerCase());
           })
-      //    if (this.foodsAll) {
-      //      return this.foodsAll.filter(item => {
-      //      return item.name.toLowerCase().includes(this.search.toLowerCase());
-      //    });
-      //    }else{
-      //      return this.foodsAll.filter(item => {
-      //      return item.name.toLowerCase().includes(this.search.toLowerCase());
-      //    });
-      //    }
+      
       },
     },
     filters: {
@@ -283,8 +317,9 @@ export default {
         }  
       },
       addProduct(products, m){
-        let product = {name: '', quantity_added_now: '', quantity_added_last: ''}
+        let product = {name: '', quantity_added_now: '', quantity_added_last: '', type:""}
         product.name = this.foodsAll[m].name
+        product.type = this.foodsAll[m].type
         product.quantity_added_now = Number(this.foodsAll[m].quantity)
         product.quantity_added_last = Number(product.quantity_added_now)
         products.push(product)
@@ -310,13 +345,17 @@ export default {
       },
       clearMessage() {
         console.log(this.products)
+        for(let l=0; l<this.foodsAll.length; l++){
+            this.foodsAll[l].quantity = ""; 
+          }
       },
       setCarnes(){
         axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/carnes")
         .then(response => {
           this.foodsAll = response.data
           for(let l=0; l<this.foodsAll.length; l++){
-            this.foodsAll[l].quantity = ""; 
+            this.foodsAll[l].quantity = "";
+            this.foodsAll[l].type = "carnes"; 
           }
         })
       },
@@ -326,6 +365,7 @@ export default {
           this.foodsAll = response.data
           for(let l=0; l<this.foodsAll.length; l++){
             this.foodsAll[l].quantity = ""; 
+            this.foodsAll[l].type = "verduras";
           }
         })
       },
@@ -335,6 +375,7 @@ export default {
           this.foodsAll = response.data
           for(let l=0; l<this.foodsAll.length; l++){
             this.foodsAll[l].quantity = ""; 
+            this.foodsAll[l].type = "frutas";
           }
         })
       },
@@ -344,8 +385,36 @@ export default {
           this.foodsAll = response.data
           for(let l=0; l<this.foodsAll.length; l++){
             this.foodsAll[l].quantity = ""; 
+            this.foodsAll[l].type = "menestras";
           }
         })
+      },
+      confirmPorduct(){
+        let productsToSend = this.products.slice()
+        for(let l=0; l<productsToSend.length; l++){
+            delete productsToSend[l].quantity_added_now
+          }
+
+        function renameKey(obj, old_key, new_key) {
+           if(old_key !== new_key) {
+               Object.defineProperty(obj, new_key, 
+                  Object.getOwnPropertyDescriptor(obj, old_key));
+                delete obj [old_key];
+           }
+        }
+        productsToSend.forEach((obj) => renameKey(obj, 'quantity_added_last', 'quantity'));
+        console.log(productsToSend)
+         axios.post("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/MDAsyGDYliP00B1LQqjAmZSYUc02", {
+           body: JSON.stringify(productsToSend),
+           headers: {
+             "Content-Type": "application/json;charset=utf-8",
+         },
+         })
+           .then((res) => res.text())
+           .catch((error) => console.error("Error:", error))
+           .then((response) => console.log("Success:", response));
+
+        this.dialog = false
       }
     },
 }
@@ -381,7 +450,10 @@ export default {
   top: 50%;
   transform: translateY(-50%);
 }
-
+.confirmProduct{
+  position: absolute;
+  right: 25px;
+}
 /* Personalizando Classification Cards */
 /* .classification-cards{
   

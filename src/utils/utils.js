@@ -73,5 +73,6 @@ function methodToGet(type = ""){
     })
 }
 
-export { getData, data2Tensor, file2LocalStorage, methodToGet, filterData};
+
+export { getData, data2Tensor, file2LocalStorage, methodToGet};
 
