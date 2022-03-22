@@ -143,6 +143,19 @@
 
     <v-container fluid>
       <h2>Mis alimentos</h2>
+      <v-btn
+                          
+                          small
+                          depressed
+                          color="#C4C4C4"
+                          @click="aux()"
+
+                          
+                
+                
+                        >
+                          PRESS ME
+                        </v-btn>
     </v-container>
     
     <v-container class="ma-0 pa-0">
@@ -257,7 +270,7 @@
                     small
                 depressed
                 color="#C4C4C4"
-                @click="editar(i)"
+                @click="editar(i) "
                 >
                     MÁS INFORMACIÓN
                 </v-btn>
@@ -348,13 +361,16 @@
 
 
 <script>
+import axios from 'axios';
+import {mapGetters} from 'vuex';
+
 
 let comidas = require('../database/prueba_tottus.json');
 
-let foodsAll = [], namesAll = [], imgsAll = [];
-let Fruits = [], Vegetables = [], Stews = [];
+var foodsAll, namesAll = [], imgsAll = [];
+var Fruits = [], Vegetables = [], Stews = [];
 
-for(let i=0; i<comidas.frutas.length;i++){
+/*for(let i=0; i<comidas.frutas.length;i++){
   Fruits[i] = comidas.frutas[i];
 }
 for(let j=0; j<comidas.verduras.length;j++){
@@ -364,7 +380,17 @@ for(let k=0; k<comidas.menestras.length;k++){
   Stews[k] = comidas.menestras[k];
 }
 foodsAll = Fruits.concat(Vegetables);
-foodsAll = foodsAll.concat(Stews);
+foodsAll = foodsAll.concat(Stews);*/
+
+axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/proudcts/4sWLSpmkTZUzOspVmy2vA3L4jgt2/frutas")
+        .then(response => {
+          foodsAll = response.data
+          
+        })
+
+console.log(foodsAll);
+
+
 
 
 
@@ -426,6 +452,38 @@ let items= [
     ),
 
 
+    computed: {
+    search: {
+      get () {
+        return this.$store.state.filter.query;
+      },
+      set (val) {
+        this.$store.commit('setQuery',val);
+      }
+    },
+    available: {
+      get () {
+        return this.$store.state.filter.available;
+      },
+      set () {
+        this.$store.commit('setAvailable')
+      }
+    },
+    ...mapGetters({
+      foods : 'filteredFoods'
+    })
+  },
+  props: {
+    foods: {
+      type: Object,
+      required: true,
+    }
+  },
+
+
+
+
+
 
     methods: {
 
@@ -437,9 +495,12 @@ let items= [
       },
       editar: function (i){
         this.items[i].statu =!this.items[i].statu;
-        
+         
+      },
+     
+      aux(){
+        console.log(this.foodsAll);
       }
-      
     },
   }
 </script>
