@@ -142,20 +142,7 @@
 
 
     <v-container fluid>
-      <h2>Mis alimentos</h2>
-      <v-btn
-                          
-                          small
-                          depressed
-                          color="#C4C4C4"
-                          @click="aux()"
-
-                          
-                
-                
-                        >
-                          PRESS ME
-                        </v-btn>
+      <h3>Mis alimentos</h3>
     </v-container>
     
     <v-container class="ma-0 pa-0">
@@ -224,8 +211,7 @@
         -->
         <v-row class="align-content-lg ma-0 pa-0"
         v-for="(item, i) in items"
-          :key="i"
-        
+        :key="i"
         >
           <v-card
           width="100%"
@@ -233,25 +219,22 @@
           class="pa-2 my-2">
             <div class="d-flex flex-no-wrap justify-start align-center"  >
             <v-avatar
-             class="ma-0"
-                size="100"
-                tile>
-              <v-img :src="item.images[0]"
+            class="ma-0"
+            size="100"
+            tile>
+              <v-img :src="item.images"
               max-width="100"
               max-height="100"
-              >
-                
+              >    
               </v-img>
 
               
             </v-avatar>
             <div>
-              <v-card-title
-                  class="ma-0 pa-0 titlemob "
-                  
-                >
-                {{item.tipo}} <v-spacer></v-spacer> 
-                <v-icon v-show="item.cant_dias > 5" 
+              <v-card-title class="ma-0 pa-0 titlemob ">
+                {{item.type | capitalize}} 
+                <v-spacer></v-spacer> 
+                <v-icon v-show="4 > 5" 
                   dark color="#FF891C" 
                   large>
                   mdi-alert
@@ -259,168 +242,126 @@
                 
                 </v-card-title> <!-- item.tipo -->
 
-                <v-card-subtitle 
-                class="ma-0 pa-0 subtitlemob" v-text="item.name"></v-card-subtitle>
-                <v-card-text  class="textmob" >Inventario: 3 kg de {{item.name}}</v-card-text>
+                <v-card-subtitle class="ma-0 pa-0 subtitlemob">{{item.name | capitalize}}</v-card-subtitle>
+                <v-card-text  class="textmob" >Inventario: {{item.quantity}} kg </v-card-text>
 
-                <div align = "center">
+                <div>
                   <v-card-actions>
-                <v-btn
-                v-model= "item.statu"
+                    <v-btn
+                    v-model="item.state"
                     small
-                depressed
-                color="#C4C4C4"
-                @click="editar(i) "
-                >
-                    MÁS INFORMACIÓN
-                </v-btn>
-                </v-card-actions>
+                    depressed
+                    color="green lighten-2"
+                    @click="showCard(i)"
+                    >
+                        MÁS INFORMACIÓN
+                    </v-btn>
+                  </v-card-actions>
 
 
                 <v-expand-transition>
-                    <v-card
-                      v-if="item.statu == false"
-                      width="100%"
-                      height="100%"
-                      class="py-2 px-1 ma-0  transition-fast-in-fast-out v-card--reveal d-flex flex-column align-center"
-                    >
+                  <v-card
+                    v-if="item.state==false"
+                    width="100%"
+                    height="100%"
+                    class="py-2 px-1 ma-0  transition-fast-in-fast-out v-card--reveal d-flex flex-column align-center"
+                  >
                     <div class="ma-0 pa-0 backstyle " >
-                      
+
                       <v-card-text class="py-0 textmob ">
                         <v-row>
                           <v-col class="py-1 ">
                             Penúltimo ingreso:
                           </v-col>
-
                           <v-col class="py-1 ">
-                            {{item.penultimo_ingreso}}
+                            {{item.product_added_last}}
                           </v-col>
                         </v-row>
-
                         <v-row>
                           <v-col class="py-1 ">
                             Último ingreso:
                           </v-col>
-
                           <v-col class="py-1 ">
-                            {{item.ultimo_ingreso}}
+                            {{item.product_added_now}}
                           </v-col>
                         </v-row>
-
                         <v-row>
                           <v-col class="py-1 ">
                             Número de días:
                           </v-col>
-
                           <v-col class="py-1 ">
                             {{item.cant_dias}}
                           </v-col>
-                        </v-row>
-                        
-                        
-                      </v-card-text>
-                      
-                      
+                        </v-row>             
+                      </v-card-text>                  
+                    </div>
 
-
-                      </div>
-                      <v-card-actions class="pa-0">
-                        <v-container class="align-center justify-center">
-                        <v-btn
-                          
+                    <v-card-actions class="pa-0">
+                      <v-container class="align-center justify-center">
+                        <v-btn              
                           small
                           depressed
-                          color="#C4C4C4"
-                          @click="editar(i)"
-
-                          
-                
-                
+                          color="green lighten-2"
+                          @click="showCard(i)"
                         >
                           CERRAR
                         </v-btn>
-                        </v-container>
-                      </v-card-actions>
-                    </v-card>
-    </v-expand-transition>
+                      </v-container>
+                    </v-card-actions>
+                  </v-card>
+                </v-expand-transition>
 
                 </div>
             </div>
-
             </div>
-
           </v-card>
         </v-row>
-
-
     </v-container>
-
   </v-container>
 </v-main>
 </template>
 
 
 <script>
-import axios from 'axios';
-import {mapGetters} from 'vuex';
+import axios from 'axios'
+var aux, myproducts;
+
+axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/MDAsyGDYliP00B1LQqjAmZSYUc02")
+      .then(response => {
+        myproducts = response.data  
+        for(let l=0; l<myproducts.length;l++){
+          myproducts[l].state = true
+        }
+        console.log(myproducts)
+      }) 
 
 
-let comidas = require('../database/prueba_tottus.json');
-
-var foodsAll, namesAll = [], imgsAll = [];
-var Fruits = [], Vegetables = [], Stews = [];
-
-/*for(let i=0; i<comidas.frutas.length;i++){
-  Fruits[i] = comidas.frutas[i];
-}
-for(let j=0; j<comidas.verduras.length;j++){
-  Vegetables[j] = comidas.verduras[j];
-}
-for(let k=0; k<comidas.menestras.length;k++){
-  Stews[k] = comidas.menestras[k];
-}
-foodsAll = Fruits.concat(Vegetables);
-foodsAll = foodsAll.concat(Stews);*/
-
-axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/proudcts/4sWLSpmkTZUzOspVmy2vA3L4jgt2/frutas")
-        .then(response => {
-          foodsAll = response.data
-          
-        })
-
-console.log(foodsAll);
-
-
-
-
-
-var show =['Penultimo ingreso', 'Ultimo ingreso', 'numero de dias'];
-let items= [
+var items= [
         {
           name: 'Melon coquito',
-          images: ["https://e39a9f00db6c5bc097f9-75bc5dce1d64f93372e7c97ed35869cb.ssl.cf1.rackcdn.com/img-XcryIxSn.jpg"],
-          tipo: "Fruta",
+          images: "https://e39a9f00db6c5bc097f9-75bc5dce1d64f93372e7c97ed35869cb.ssl.cf1.rackcdn.com/img-XcryIxSn.jpg",
+          type: "Fruta",
 
-          cantidad: 3.5,
-          unidad: "Kg",
+          quantity: 3.5,
           
-          ultimo_ingreso: "fechaayer",
-          penultimo_ingreso: "fehcaanteayer",
+          
+          product_added_now: "fechaayer",
+          product_added_last: "fehcaanteayer",
           cant_dias: 1,
-          statu: true,
+          state: true,
         },
         {
           name: 'maracuy\u00e1',
-          images: [ "https://e39a9f00db6c5bc097f9-75bc5dce1d64f93372e7c97ed35869cb.ssl.cf1.rackcdn.com/42259096-dyeLeJHM.jpg"],
-          tipo: "Fruta",
+          images: "https://e39a9f00db6c5bc097f9-75bc5dce1d64f93372e7c97ed35869cb.ssl.cf1.rackcdn.com/42259096-dyeLeJHM.jpg",
+          type: "Fruta",
 
-          cantidad: 7,
-          unidad: "Un",
+          quantity: 7,
           
-          ultimo_ingreso: "fechaayer",
-          penultimo_ingreso: "fehcaanteayer",
+          
+          product_added_now: "fechaayer",
+          product_added_last: "fehcaanteayer",
           cant_dias: 10,
-          statu: true,
+          state: true,
         },
       ];
 
@@ -429,79 +370,28 @@ let items= [
 
   export default {
     data: () => ({
-      show,
       items,
-      
+
+      myproducts,
       amount: null,
 
-        // Extracción de datos del JSON
-        comidas,
-     
-        foodsAll,
-        imgsAll,
-        namesAll,
-
-        
-
-    }
-    
-    
-    
-    
-    
-    ),
-
-
-    computed: {
-    search: {
-      get () {
-        return this.$store.state.filter.query;
-      },
-      set (val) {
-        this.$store.commit('setQuery',val);
-      }
-    },
-    available: {
-      get () {
-        return this.$store.state.filter.available;
-      },
-      set () {
-        this.$store.commit('setAvailable')
-      }
-    },
-    ...mapGetters({
-      foods : 'filteredFoods'
-    })
-  },
-  props: {
-    foods: {
-      type: Object,
-      required: true,
-    }
-  },
-
-
-
-
-
-
+    }),
     methods: {
-
-      sendMessage () {
-        //Aqui va el método para añadir los productos a las lista de de comidas personales
-      },
       searchFilters(input, selector){
         //Aquí va el método para filtrar los alimentos
       },
-      editar: function (i){
-        this.items[i].statu =!this.items[i].statu;
-         
-      },
-     
-      aux(){
-        console.log(this.foodsAll);
+      showCard(i){
+        this.items[i].state = !this.items[i].state;  
+        console.log(this.items[i]);
       }
     },
+    filters: {
+          capitalize: function (value) {
+            if (!value) return ''
+            value = value.toString()
+            return value.charAt(0).toUpperCase() + value.slice(1)
+          }
+    }
   }
 </script>
 

@@ -390,13 +390,11 @@ export default {
           }
         })
       },
-      confirmPorduct(){
-        let productsToSend = this.products.slice()
-
-        for(let l=0; l<productsToSend.length; l++){
-            delete productsToSend[l].quantity_added_now
+      debugCode(){
+        let productsToSupport = this.products.slice()
+        for(let l=0; l<productsToSupport.length; l++){
+            delete productsToSupport[l].quantity_added_now
           }
-
         function renameKey(obj, old_key, new_key) {
            if(old_key !== new_key) {
                Object.defineProperty(obj, new_key, 
@@ -404,23 +402,28 @@ export default {
                 delete obj [old_key];
            }
         }
-        productsToSend.forEach((obj) => renameKey(obj, 'quantity_added_last', 'quantity'));
-        console.log(productsToSend[0])
-        
+        productsToSupport.forEach((obj) => renameKey(obj, 'quantity_added_last', 'quantity'));
+        return productsToSupport
+      },
+      functionPost(productsToSend,m){
         let apiUrl = "https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/MDAsyGDYliP00B1LQqjAmZSYUc02"
-        
-        // METODO PARA AGREGAR PRODUCTOS A FIREBASE
-        for(let m=0; m<productsToSend; m++){
-          fetch(apiUrl , {
-              method: "POST",
-              body: JSON.stringify(productsToSend[m]),
-              headers: {
-                  "Content-Type": "application/json;charset=utf-8",
-              },
-          })
-              .then((res) => res.text())
-              .catch((error) => console.error("Error:", error))
-              .then((response) => console.log("Success:", response));
+        fetch(apiUrl , {
+             method: "POST",
+             body: JSON.stringify(productsToSend[m]),
+             headers: {
+                 "Content-Type": "application/json;charset=utf-8",
+             },
+         })
+             .then((res) => res.text())
+             .catch((error) => console.error("Error:", error))
+             .then((response) => console.log("Success:", response));
+      },
+      confirmPorduct(){
+        let productsToSend = this.debugCode()
+        console.log(productsToSend)
+
+        for(let m=0; m<productsToSend.length; m++){
+          this.functionPost(productsToSend,m)
         }
 
         // METODO DELETE PARA BORRAR ALGUN PRODUCTO 
@@ -434,7 +437,8 @@ export default {
         //        .then((res) => res.text())
         //        .catch((error) => console.error("Error:", error))
         //        .then((response) => console.log("Success:", response));
-                  
+        
+        this.products = []     
         this.dialog = false
       }
     },
