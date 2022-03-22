@@ -210,7 +210,7 @@
         </v-row>
         -->
         <v-row class="align-content-lg ma-0 pa-0"
-        v-for="(item, i) in myproducts"
+        v-for="(item, i) in items"
         :key="i"
         >
           <v-card
@@ -234,7 +234,7 @@
               <v-card-title class="ma-0 pa-0 titlemob ">
                 {{item.type | capitalize}} 
                 <v-spacer></v-spacer> 
-                <v-icon v-show="item.cant_dias > 5" 
+                <v-icon v-show="4 > 5" 
                   dark color="#FF891C" 
                   large>
                   mdi-alert
@@ -248,7 +248,7 @@
                 <div>
                   <v-card-actions>
                     <v-btn
-                    v-model="item.helper"
+                    v-model="item.state"
                     small
                     depressed
                     color="green lighten-2"
@@ -261,7 +261,7 @@
 
                 <v-expand-transition>
                   <v-card
-                    v-show="!item.state"
+                    v-if="item.state==false"
                     width="100%"
                     height="100%"
                     class="py-2 px-1 ma-0  transition-fast-in-fast-out v-card--reveal d-flex flex-column align-center"
@@ -324,33 +324,44 @@
 
 <script>
 import axios from 'axios'
+var aux, myproducts;
 
-let items= [
+axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/MDAsyGDYliP00B1LQqjAmZSYUc02")
+      .then(response => {
+        myproducts = response.data  
+        for(let l=0; l<myproducts.length;l++){
+          myproducts[l].state = true
+        }
+        console.log(myproducts)
+      }) 
+
+
+var items= [
         {
           name: 'Melon coquito',
-          images: ["https://e39a9f00db6c5bc097f9-75bc5dce1d64f93372e7c97ed35869cb.ssl.cf1.rackcdn.com/img-XcryIxSn.jpg"],
-          tipo: "Fruta",
+          images: "https://e39a9f00db6c5bc097f9-75bc5dce1d64f93372e7c97ed35869cb.ssl.cf1.rackcdn.com/img-XcryIxSn.jpg",
+          type: "Fruta",
 
-          cantidad: 3.5,
-          unidad: "Kg",
+          quantity: 3.5,
           
-          ultimo_ingreso: "fechaayer",
-          penultimo_ingreso: "fehcaanteayer",
+          
+          product_added_now: "fechaayer",
+          product_added_last: "fehcaanteayer",
           cant_dias: 1,
-          statu: true,
+          state: true,
         },
         {
           name: 'maracuy\u00e1',
-          images: [ "https://e39a9f00db6c5bc097f9-75bc5dce1d64f93372e7c97ed35869cb.ssl.cf1.rackcdn.com/42259096-dyeLeJHM.jpg"],
-          tipo: "Fruta",
+          images: "https://e39a9f00db6c5bc097f9-75bc5dce1d64f93372e7c97ed35869cb.ssl.cf1.rackcdn.com/42259096-dyeLeJHM.jpg",
+          type: "Fruta",
 
-          cantidad: 7,
-          unidad: "Un",
+          quantity: 7,
           
-          ultimo_ingreso: "fechaayer",
-          penultimo_ingreso: "fehcaanteayer",
+          
+          product_added_now: "fechaayer",
+          product_added_last: "fehcaanteayer",
           cant_dias: 10,
-          statu: true,
+          state: true,
         },
       ];
 
@@ -361,30 +372,17 @@ let items= [
     data: () => ({
       items,
 
-      index:-1,
-      reveal: false,
-
-      myproducts: null,
+      myproducts,
       amount: null,
 
     }),
-    mounted(){
-      axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/MDAsyGDYliP00B1LQqjAmZSYUc02")
-      .then(response => {
-        this.myproducts = response.data  
-        for(let l=0; l<this.myproducts.length;l++){
-          this.myproducts[l].state = false
-        }
-        console.log(this.myproducts)
-      }) 
-    },
     methods: {
       searchFilters(input, selector){
         //Aquí va el método para filtrar los alimentos
       },
       showCard(i){
-        this.myproducts[i].state =!this.myproducts[i].state;  
-        console.log(this.myproducts[i])
+        this.items[i].state = !this.items[i].state;  
+        console.log(this.items[i]);
       }
     },
     filters: {
