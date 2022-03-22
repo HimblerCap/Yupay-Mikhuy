@@ -317,7 +317,8 @@ export default {
         }  
       },
       addProduct(products, m){
-        let product = {name: '', quantity_added_now: '', quantity_added_last: '', type:""}
+        let product = {name: '', quantity_added_now: '', quantity_added_last: '', type:"", images:""}
+        product.images = this.foodsAll[m].images[0]
         product.name = this.foodsAll[m].name
         product.type = this.foodsAll[m].type
         product.quantity_added_now = Number(this.foodsAll[m].quantity)
@@ -341,13 +342,13 @@ export default {
               }
             } 
         }     
-        this.clearMessage()       
+        this.clearMessage()  
       },
       clearMessage() {
         console.log(this.products)
         for(let l=0; l<this.foodsAll.length; l++){
             this.foodsAll[l].quantity = ""; 
-          }
+        } 
       },
       setCarnes(){
         axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/carnes")
@@ -391,6 +392,7 @@ export default {
       },
       confirmPorduct(){
         let productsToSend = this.products.slice()
+
         for(let l=0; l<productsToSend.length; l++){
             delete productsToSend[l].quantity_added_now
           }
@@ -403,17 +405,36 @@ export default {
            }
         }
         productsToSend.forEach((obj) => renameKey(obj, 'quantity_added_last', 'quantity'));
-        console.log(productsToSend)
-         axios.post("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/MDAsyGDYliP00B1LQqjAmZSYUc02", {
-           body: JSON.stringify(productsToSend),
-           headers: {
-             "Content-Type": "application/json;charset=utf-8",
-         },
-         })
-           .then((res) => res.text())
-           .catch((error) => console.error("Error:", error))
-           .then((response) => console.log("Success:", response));
+        console.log(productsToSend[0])
+        
+        let apiUrl = "https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/MDAsyGDYliP00B1LQqjAmZSYUc02"
+        
+        // METODO PARA AGREGAR PRODUCTOS A FIREBASE
+        for(let m=0; m<productsToSend; m++){
+          fetch(apiUrl , {
+              method: "POST",
+              body: JSON.stringify(productsToSend[m]),
+              headers: {
+                  "Content-Type": "application/json;charset=utf-8",
+              },
+          })
+              .then((res) => res.text())
+              .catch((error) => console.error("Error:", error))
+              .then((response) => console.log("Success:", response));
+        }
 
+        // METODO DELETE PARA BORRAR ALGUN PRODUCTO 
+        // fetch(apiUrl , {
+        //        method: "DELETE",
+        //        body: JSON.stringify({name:"lomito sasami de pollo"}),
+        //        headers: {
+        //            "Content-Type": "application/json;charset=utf-8",
+        //        },
+        //    })
+        //        .then((res) => res.text())
+        //        .catch((error) => console.error("Error:", error))
+        //        .then((response) => console.log("Success:", response));
+                  
         this.dialog = false
       }
     },
