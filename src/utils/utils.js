@@ -20,14 +20,14 @@ function data2Tensor(data) {
     }
 
     for(var j=0; j<values.length;j++){
-        if(values[j].length===159){
+        if(values[j].length===106){
             values[j].pop()
         }
     }
 
     const labels = data.map((d) => d.Label);    
 
-    const valuesTensor = tf.tensor2d(values, [values.length, 106]);
+    const valuesTensor = tf.tensor2d(values, [values.length, 105]);
     const labelTensor = tf.oneHot(tf.tensor1d(labels).toInt(), 51);
 
     return {
@@ -39,12 +39,12 @@ function data2Tensor(data) {
 
 //Pass model from file storage to local storage
 function file2LocalStorage(){
-    const model = require('../models/recieps.json');
-    localStorage.setItem('tensorflowjs_models/recieps/info', model.info);
-    localStorage.setItem('tensorflowjs_models/recieps/model_topology', model.modelTopology);
-    localStorage.setItem('tensorflowjs_models/recieps/model_metadata', model.modelMetadata);
-    localStorage.setItem('tensorflowjs_models/recieps/weight_data', model.weightData);
-    localStorage.setItem('tensorflowjs_models/recieps/weight_specs', model.weightSpecs);
+     const model = require('../models/recieps.json');
+     localStorage.setItem('tensorflowjs_models/recieps/info', model.info);
+     localStorage.setItem('tensorflowjs_models/recieps/model_topology', model.modelTopology);
+     localStorage.setItem('tensorflowjs_models/recieps/model_metadata', model.modelMetadata);
+     localStorage.setItem('tensorflowjs_models/recieps/weight_data', model.weightData);
+     localStorage.setItem('tensorflowjs_models/recieps/weight_specs', model.weightSpecs);
 }
 
 function filterData(productsData){
