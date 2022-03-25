@@ -195,8 +195,8 @@
                 <h6>Frutas</h6>
               </v-btn>
 
-              <v-btn class="classification-cards" @click="setMenestras">
-                <h6>Menestras</h6>
+              <v-btn class="classification-cards" @click="setAbarrotes">
+                <h6>Abarrotes</h6>
               </v-btn>
           </v-btn-toggle>
           
@@ -380,13 +380,13 @@ export default {
           }
         })
       },
-      setMenestras(){
-        axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/menestras")
+      setAbarrotes(){
+        axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/products/abarrotes")
         .then(response => {
           this.foodsAll = response.data
           for(let l=0; l<this.foodsAll.length; l++){
             this.foodsAll[l].quantity = ""; 
-            this.foodsAll[l].type = "menestras";
+            this.foodsAll[l].type = "abarrotes";
           }
         })
       },
@@ -406,7 +406,9 @@ export default {
         return productsToSupport
       },
       functionPost(productsToSend,m){
-        let apiUrl = "https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/MDAsyGDYliP00B1LQqjAmZSYUc02"
+        //Codigo Renato MDAsyGDYliP00B1LQqjAmZSYUc02
+        //Codigo Eduardo 4sWLSpmKTZUzOspVmy2vA3L4jgt2
+        let apiUrl = "https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/4sWLSpmKTZUzOspVmy2vA3L4jgt2"
         fetch(apiUrl , {
              method: "POST",
              body: JSON.stringify(productsToSend[m]),
@@ -419,17 +421,17 @@ export default {
              .then((response) => console.log("Success:", response));
       },
       confirmPorduct(){
-        let productsToSend = this.debugCode()
+         let productsToSend = this.debugCode()
         console.log(productsToSend)
-
         for(let m=0; m<productsToSend.length; m++){
           this.functionPost(productsToSend,m)
         }
 
         // METODO DELETE PARA BORRAR ALGUN PRODUCTO 
+        // let apiUrl = "https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/4sWLSpmKTZUzOspVmy2vA3L4jgt2"
         // fetch(apiUrl , {
         //        method: "DELETE",
-        //        body: JSON.stringify({name:"lomito sasami de pollo"}),
+        //        body: JSON.stringify({name:"manzana"}),
         //        headers: {
         //            "Content-Type": "application/json;charset=utf-8",
         //        },
@@ -437,7 +439,7 @@ export default {
         //        .then((res) => res.text())
         //        .catch((error) => console.error("Error:", error))
         //        .then((response) => console.log("Success:", response));
-        
+    
         this.products = []     
         this.dialog = false
       }
