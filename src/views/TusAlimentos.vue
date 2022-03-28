@@ -7,14 +7,14 @@
 
   <v-container fluid class="mr-n9 hidden-sm-and-down">
     <v-container fluid>
-      <h1>Tus alimentos</h1>
+      <h1>Tus alimentos </h1>
     </v-container>
 
     
     <v-container>
        <v-row>
            <v-col 
-            v-for="(item, i) in items"
+            v-for="(item, i) in myproducts"
           :key="i"
           cols="auto">
 
@@ -26,7 +26,7 @@
                 <v-card-title
                   class="text-h5 pb-2 titledesk"
                   
-                >{{item.tipo}}</v-card-title> 
+                >{{item.type}}</v-card-title> 
 
                 <v-card-subtitle class="mt-1 subtitledesk">{{item.name}}</v-card-subtitle>
               </div>
@@ -36,7 +36,7 @@
                 size="125"
                 tile
               >
-                <v-img :src="item.images[0]"
+                <v-img :src="item.images"
                 max-width="100"
                 
                 ></v-img>
@@ -51,11 +51,11 @@
                  tile
                  elevation="0"
                  color="#F3C892">
-                    <v-card-text class="textdesk ">Inventario:  {{item.cantidad}} {{item.unidad}} de {{item.name}}  </v-card-text>
+                    <v-card-text class="textdesk ">Inventario:  {{item.quantity}} Kg de {{item.name}}  </v-card-text>
                 </v-card>
 
               </div>
-              <v-alert v-if="item.cant_dias > 5" 
+              <v-alert v-if="item.days > 5" 
               
               
                     
@@ -64,7 +64,7 @@
                 dense
                 class="mx-1 mt-2"
                 >
-                La {{item.tipo}} tiene {{item.cant_dias}} días almacenada.
+                La {{item.type}} tiene {{item.days}} días almacenada.
                   
               </v-alert>
 
@@ -82,7 +82,7 @@
                     </v-btn>
 
                     <v-card>
-                       {{item.cantidad}} {{item.unidad}}
+                       {{item.quantity}} Kg
                     </v-card>
 
                     <v-btn
@@ -138,14 +138,15 @@
 
   <!--MOBILE-->
 
-  <v-container class="ma-0 pa-0 hidden-sm-and-up">
+  <v-container class="ma-0 pa-0 hidden-sm-and-up" v-if=" myproducts !== null">
 
 
     <v-container fluid>
-      <h3>Mis alimentos</h3>
+      <h3>Mis alimentos {{prueba()}}</h3>
     </v-container>
     
-    <v-container class="ma-0 pa-0">
+    <v-container class="ma-0 pa-0" >
+      <!--
       <v-col cols="12" class="pl-0 pr-0">
           
           <v-btn-toggle
@@ -172,45 +173,9 @@
             </v-btn>
           </v-btn-toggle>
       </v-col>
-      <!--
-      <v-row>
-          <v-col  justify="center" align="center" cols="12" class="pa-0">
-            <v-col 
-            cols="12"
-            class="pa-1"
-            v-for="(food,i) in foodsAll"
-            :href="food.href"
-            position= relative
-            :key="i">
-              <v-card outlined>
-                <v-col cols="11" class="ma-0 pa-0 ">
-                  <v-row justify="center" align="center">
-                    <v-col cols="3" justify="center" align="center" class="pa-0 pl-1">
-                    <v-card class="pa-1" flat>
-                      <v-img
-                      max-width="70"
-                      max-height="40"
-                      :src="food.images[0]"
-                      ></v-img>
-                    </v-card> 
-                  </v-col>
-                  <v-col cols="9" class="ma-0 pa-1">
-                    <v-row justify="center" align="center">
-                      <v-col cols="4" class="pa-0 ml-3">
-                          <h5 style="font-family: 'Lato', sans-serif;">{{food.name}}</h5>
-                      </v-col>
-                      
-                    </v-row>
-                  </v-col>
-                  </v-row>
-                </v-col>  
-              </v-card>
-            </v-col>
-          </v-col>
-        </v-row>
-        -->
+      -->
         <v-row class="align-content-lg ma-0 pa-0"
-        v-for="(item, i) in items"
+        v-for="(item, i) in myproducts"
         :key="i"
         >
           <v-card
@@ -234,7 +199,7 @@
               <v-card-title class="ma-0 pa-0 titlemob ">
                 {{item.type | capitalize}} 
                 <v-spacer></v-spacer> 
-                <v-icon v-show="4 > 5" 
+                <v-icon v-show="item.days > 5" 
                   dark color="#FF891C" 
                   large>
                   mdi-alert
@@ -244,8 +209,11 @@
 
                 <v-card-subtitle class="ma-0 pa-0 subtitlemob">{{item.name | capitalize}}</v-card-subtitle>
                 <v-card-text  class="textmob" >Inventario: {{item.quantity}} kg </v-card-text>
-
-                <div>
+                
+                <v-card-text  class="textmob pa-0" >Penúltimo ingreso:  {{item.product_added_last}} </v-card-text>
+                <v-card-text  class="textmob pa-0" >Último ingreso: {{item.product_added_now}} </v-card-text>
+                <v-card-text  class="textmob pa-0" >Número de días: {{item.days}} </v-card-text>
+                <!--
                   <v-card-actions>
                     <v-btn
                     v-model="item.state"
@@ -290,7 +258,7 @@
                             Número de días:
                           </v-col>
                           <v-col class="py-1 ">
-                            {{item.cant_dias}}
+                            {{item.days}}
                           </v-col>
                         </v-row>             
                       </v-card-text>                  
@@ -310,9 +278,9 @@
                     </v-card-actions>
                   </v-card>
                 </v-expand-transition>
-
+                -->
                 </div>
-            </div>
+            
             </div>
           </v-card>
         </v-row>
@@ -324,16 +292,7 @@
 
 <script>
 import axios from 'axios'
-var aux, myproducts;
-
-axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/MDAsyGDYliP00B1LQqjAmZSYUc02")
-      .then(response => {
-        myproducts = response.data  
-        for(let l=0; l<myproducts.length;l++){
-          myproducts[l].state = true
-        }
-        console.log(myproducts)
-      }) 
+var rpta, myproducts, response ,aux2;
 
 
 var items= [
@@ -347,7 +306,7 @@ var items= [
           
           product_added_now: "fechaayer",
           product_added_last: "fehcaanteayer",
-          cant_dias: 1,
+          days: 1,
           state: true,
         },
         {
@@ -360,31 +319,54 @@ var items= [
           
           product_added_now: "fechaayer",
           product_added_last: "fehcaanteayer",
-          cant_dias: 10,
+          days: 10,
           state: true,
         },
       ];
 
 
-
-
   export default {
     data: () => ({
+      dataReady: false,
       items,
-
-      myproducts,
+      rpta,
+      myproducts : null,
+      categoryButtons: 'center',
       amount: null,
-
     }),
     methods: {
-      searchFilters(input, selector){
-        //Aquí va el método para filtrar los alimentos
-      },
       showCard(i){
-        this.items[i].state = !this.items[i].state;  
-        console.log(this.items[i]);
-      }
+        this.myproducts[i].state = !this.myproducts[i].state;  
+        console.log(this.myproducts[i]);
+      },
+      prueba(){
+        console.log(this.myproducts);
+        console.log(this.items);
+      },
+      
     },
+    async created() {
+      let response = await axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/MDAsyGDYliP00B1LQqjAmZSYUc02");
+      this.myproducts = response.data;
+      
+      let date = new Date();
+      let divi = 1000*60*60*24;
+      let aux;
+        for(let l=0; l<this.myproducts.length; l++){
+          
+          aux = new Date(this.myproducts[l].product_added_now);
+          
+          this.myproducts[l].state = true; 
+          this.myproducts[l].days = Math.floor((date.getTime() - aux.getTime())/(divi));
+
+          if(this.myproducts[l].product_added_last == ""){
+            this.myproducts[l].product_added_last = "--";
+          }
+        }
+        
+      },
+    
+
     filters: {
           capitalize: function (value) {
             if (!value) return ''
