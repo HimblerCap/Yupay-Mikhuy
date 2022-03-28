@@ -4,7 +4,7 @@ import * as tf from '@tensorflow/tfjs';
 function createModel(){
     const model = tf.sequential({
         layers: [
-            tf.layers.dense({inputShape: [105], units: 192, activation: 'relu'}),
+            tf.layers.dense({inputShape: [106], units: 192, activation: 'relu'}),
             tf.layers.dense({units: 51, activation:'softmax'}),
         ]
     });

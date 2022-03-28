@@ -51,16 +51,53 @@
 
 <script>
 import * as tf from '@tensorflow/tfjs';
-import { file2LocalStorage } from '../../utils/utils';
+import { file2LocalStorage,  completeArray, predict } from '../../utils/utils';
+// import { getData, data2Tensor } from '../../utils/utils';
+// import { createModel, modelTraining } from '../../models/model';
+
+// async function trainModel(){
+//      const path = "https://himblercap.github.io/Horario-Generator/newData.json";
+
+//      const train_data = await getData(path);
+
+//      const tensorData = data2Tensor(train_data);
+
+//      const model = createModel();
+
+//     await modelTraining(model, tensorData.inputs, tensorData.labels);
+    
+// }
+
+// trainModel()
 
 
-async function load(){
-   file2LocalStorage();
-   const model = await tf.loadLayersModel('localstorage://recieps');
-   model.summary();
+async function loadAndPredict(){
+    let listToIngredient = []
+     if(localStorage.getItem('tensorflowjs_models/recieps/info') === null){
+         file2LocalStorage();
+     }
+    const model = await tf.loadLayersModel('localstorage://recieps');
+    fetch("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/MDAsyGDYliP00B1LQqjAmZSYUc02")
+     .then((response) =>
+         response.json())
+     .then((data) => {
+        for(var i=0; i< data.length; i++) {
+            listToIngredient.push(data[i].name)   
+        }
+
+        //Complete the array with 1 and 0
+         var input = completeArray(listToIngredient);
+
+         //pass data to tensor
+         const valuesTensor = tf.tensor2d(input, [1, 106]);
+        
+         //predict
+         const food = predict(model, valuesTensor);
+         console.log(food)
+     })  
 }
 
-load();
+loadAndPredict();
 
 export default {
   name: 'HomeViewPhone',
