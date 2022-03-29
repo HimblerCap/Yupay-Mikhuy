@@ -352,12 +352,13 @@ var items= [
       let date = new Date();
       let divi = 1000*60*60*24;
       let aux;
+      let correcionservidor = 5*60000*60;
         for(let l=0; l<this.myproducts.length; l++){
           
           aux = new Date(this.myproducts[l].product_added_now);
           
           this.myproducts[l].state = true; 
-          this.myproducts[l].days = Math.floor((date.getTime() - aux.getTime())/(divi));
+          this.myproducts[l].days = Math.floor((date.getTime() - aux.getTime() +correcionservidor)/(divi));
 
           if(this.myproducts[l].product_added_last == ""){
             this.myproducts[l].product_added_last = "--";
