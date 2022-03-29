@@ -48,14 +48,25 @@ const getProductsByType = async (req, res) => {
 
 const createProduct = async (req, res) => {
     try {
-        await query
-            .doc(req.params.type)
+        const { name, images, type } = req.body;
+        const doc = await query
+            .doc(type)
             .collection("listProducts")
-            .doc()
-            .set({
-                ...req.body,
-            });
-        res.status(201).json();
+            .where("name", "==", name)
+            .get();
+        if (doc.empty) {
+            await query
+                .doc(type)
+                .collection("listProducts")
+                .doc()
+                .set({
+                    name: name,
+                    images: images,
+                });
+            res.status(201).json();
+        } else {
+            res.status(409).send("Product already exists");
+        }
     } catch (error) {
         httpError(res, error);
     }

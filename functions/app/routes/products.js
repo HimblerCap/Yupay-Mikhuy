@@ -6,10 +6,12 @@ const {
     createProduct,
 } = require("../controllers/products");
 
+const { validateCreateProduct } = require("../validators/products");
+
 router.get("/", getProducts);
 
-router.get("/:type", getProductsByType);
+router.post("/", validateCreateProduct, createProduct);
 
-router.post("/:type", createProduct);
+router.get("/:type", getProductsByType);
 
 module.exports = router;
