@@ -214,7 +214,7 @@ function predict(model, valuesTensor){
     'Chicharron de chancho',
     'Arroz chaufa',
     'Ceviche de pollo',
-    'Sopa de lentejas',
+    'Lomo saltado',
     'Escabeche de pescado',
     'Tiradito de pescado',
     'Ensalada rusa',
@@ -236,7 +236,7 @@ function predict(model, valuesTensor){
     'Olluquito con pollo',
     'Causa de atun',
     'Bistec con papas',
-    'Lomo saltado',
+    'Sopa de lentejas',
     'Sopa a la minuta',
     'Papa rellena',
     'Olluquito con carne',
@@ -254,8 +254,6 @@ function predict(model, valuesTensor){
     const values = prediction.dataSync();
     var max = 0;
     var index = 0;
-    
-    console.log(values)
 
     for(var i=0; i<values.length; i++){
         if(values[i]> max){
@@ -264,7 +262,6 @@ function predict(model, valuesTensor){
         }
     }
     
-    console.log(max)
     const finalPrediction = labels[index];
     return finalPrediction;
 }

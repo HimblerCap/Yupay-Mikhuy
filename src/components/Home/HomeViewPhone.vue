@@ -12,7 +12,7 @@
             </v-container>
         </v-row>
         <v-row align="center" fluid class="fill-height pt-10">
-            <h2 class="pt-5">Platos que puedes preparar</h2>
+            <h2 class="pt-5">Dishes you can prepare</h2>
 
             <v-card
                 class="mx-auto my-3"
@@ -20,91 +20,52 @@
             >
             <v-img
                 height="150"
-                src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+                :src="dishes[8].Lomo"
             >
             </v-img>
 
-            <v-card-title><span style="color:#FFAD60">Lomo Saltado</span></v-card-title>
-            <v-card-text>
-                Una pequeña descripción
-            </v-card-text>
+            <v-card-title><span style="color:#FFAD60">{{ food }}</span></v-card-title>
+            <v-card-text>{{ dishes[8].Description }}</v-card-text>
             </v-card>
-            <v-card
-                class="mx-auto my-3"
-                max-width="300"
-            >
-            <v-img
-                height="150"
-                src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-            >
-            </v-img>
-
-            <v-card-title><span style="color:#FFAD60">Lomo Saltado</span></v-card-title>
-            <v-card-text>
-                Una pequeña descripción
-            </v-card-text>
-            </v-card>
-            
         </v-row>
     </v-container>
 </template>
 
 <script>
+import axios from 'axios';
 import * as tf from '@tensorflow/tfjs';
 import { file2LocalStorage,  completeArray, predict } from '../../utils/utils';
-// import { getData, data2Tensor } from '../../utils/utils';
-// import { createModel, modelTraining } from '../../models/model';
-
-// async function trainModel(){
-//      const path = "https://himblercap.github.io/Horario-Generator/newData.json";
-
-//      const train_data = await getData(path);
-
-//      const tensorData = data2Tensor(train_data);
-
-//      const model = createModel();
-
-//     await modelTraining(model, tensorData.inputs, tensorData.labels);
-    
-// }
-
-// trainModel()
-
-
-async function loadAndPredict(){
-    let listToIngredient = []
-     if(localStorage.getItem('tensorflowjs_models/recieps/info') === null){
-         file2LocalStorage();
-     }
-    const model = await tf.loadLayersModel('localstorage://recieps');
-    fetch("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/MDAsyGDYliP00B1LQqjAmZSYUc02")
-     .then((response) =>
-         response.json())
-     .then((data) => {
-        for(var i=0; i< data.length; i++) {
-            listToIngredient.push(data[i].name)   
-        }
-
-        //Complete the array with 1 and 0
-         var input = completeArray(listToIngredient);
-
-         //pass data to tensor
-         const valuesTensor = tf.tensor2d(input, [1, 106]);
-        
-         //predict
-         const food = predict(model, valuesTensor);
-         console.log(food)
-     })  
-}
-
-loadAndPredict();
+import dishes from '../../database/dish.json';
 
 export default {
   name: 'HomeViewPhone',
   data () {
     return {
+       food: 'value',
+       dishes: dishes,
     }
   },
+  mounted(){
+      this.predict();
+  },
+  methods: {
+      predict() {
+          if(localStorage.getItem('tensorflowjs_models/recieps/info') === null){
+            file2LocalStorage();
+          } 
+          tf.loadLayersModel('localstorage://recieps').then((model)=>{
+              axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/MDAsyGDYliP00B1LQqjAmZSYUc02").then((response)=>{
+                    const listToIngredient = [];
+                    for(var i=0; i< response.data.length; i++) {
+                        listToIngredient.push(response.data[i].name)   
+                    }
+                    var input = completeArray(listToIngredient);
+                    const valuesTensor = tf.tensor2d(input, [1, 106]);
+                    this.food = predict(model, valuesTensor);
+              })
+          })
+      }
+  }
 }
 
 </script>

@@ -202,8 +202,8 @@
     methods: {
         ...mapMutations("toogleDrawer"),
         onclick (e, item) {
-        e.stopPropagation()
-        this.$router.push(item.to)
+          e.stopPropagation()
+          this.$router.push(item.to)
         }
     }
   }
