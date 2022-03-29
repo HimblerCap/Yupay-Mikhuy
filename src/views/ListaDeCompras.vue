@@ -421,17 +421,17 @@ export default {
              .then((response) => console.log("Success:", response));
       },
       confirmPorduct(){
-         let productsToSend = this.debugCode()
+        let productsToSend = this.debugCode()
         console.log(productsToSend)
         for(let m=0; m<productsToSend.length; m++){
           this.functionPost(productsToSend,m)
         }
 
         // METODO DELETE PARA BORRAR ALGUN PRODUCTO 
-        // let apiUrl = "https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/4sWLSpmKTZUzOspVmy2vA3L4jgt2"
+        // let apiUrl = "https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/MDAsyGDYliP00B1LQqjAmZSYUc02"
         // fetch(apiUrl , {
         //        method: "DELETE",
-        //        body: JSON.stringify({name:"manzana"}),
+        //        body: JSON.stringify({name:"limon sutil"}),
         //        headers: {
         //            "Content-Type": "application/json;charset=utf-8",
         //        },
@@ -439,7 +439,7 @@ export default {
         //        .then((res) => res.text())
         //        .catch((error) => console.error("Error:", error))
         //        .then((response) => console.log("Success:", response));
-    
+
         this.products = []     
         this.dialog = false
       }
