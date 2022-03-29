@@ -139,8 +139,6 @@
   <!--MOBILE-->
 
   <v-container class="ma-0 pa-0 hidden-sm-and-up" v-if=" myproducts !== null">
-
-
     <v-container fluid>
       <h3>Mis alimentos {{prueba()}}</h3>
     </v-container>
@@ -195,7 +193,7 @@
 
               
             </v-avatar>
-            <div>
+            <div class="ma-4">
               <v-card-title class="ma-0 pa-0 titlemob ">
                 {{item.type | capitalize}} 
                 <v-spacer></v-spacer> 
@@ -292,35 +290,29 @@
 
 <script>
 import axios from 'axios'
-var rpta, myproducts, response ,aux2;
+var rpta;
 
 
-var items= [
+let myproducts= [
         {
-          name: 'Melon coquito',
+          days: 7,
           images: "https://e39a9f00db6c5bc097f9-75bc5dce1d64f93372e7c97ed35869cb.ssl.cf1.rackcdn.com/img-XcryIxSn.jpg",
-          type: "Fruta",
-
-          quantity: 3.5,
-          
-          
-          product_added_now: "fechaayer",
-          product_added_last: "fehcaanteayer",
-          days: 1,
+          name: "melon coquito",
+          product_added_last: "--",
+          product_added_now: "3/22/2022",
+          quantity: 1.5,
           state: true,
+          type: "fruta",
         },
         {
-          name: 'maracuy\u00e1',
-          images: "https://e39a9f00db6c5bc097f9-75bc5dce1d64f93372e7c97ed35869cb.ssl.cf1.rackcdn.com/42259096-dyeLeJHM.jpg",
-          type: "Fruta",
-
-          quantity: 7,
-          
-          
-          product_added_now: "fechaayer",
-          product_added_last: "fehcaanteayer",
-          days: 10,
+          days: 4,
+          images: "https://e39a9f00db6c5bc097f9-75bc5dce1d64f93372e7c97ed35869cb.ssl.cf1.rackcdn.com/40475203_1-K_h5hl1M.jpg",
+          name: "cerdo",
+          product_added_last: "--",
+          product_added_now: "3/25/2022",
+          quantity: 0.5,
           state: true,
+          type: "carnes",
         },
       ];
 
@@ -328,9 +320,9 @@ var items= [
   export default {
     data: () => ({
       dataReady: false,
-      items,
       rpta,
-      myproducts : null,
+      helper: null,
+      myproducts,
       categoryButtons: 'center',
       amount: null,
     }),
@@ -341,13 +333,13 @@ var items= [
       },
       prueba(){
         console.log(this.myproducts);
-        console.log(this.items);
       },
       
     },
     async created() {
-      let response = await axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/4sWLSpmKTZUzOspVmy2vA3L4jgt2");
-      this.myproducts = response.data;
+      let response = await axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/MDAsyGDYliP00B1LQqjAmZSYUc02");
+      this.helper = response.data;
+      this.myproducts = this.myproducts.concat(this.helper)
       
       let date = new Date();
       let divi = 1000*60*60*24;

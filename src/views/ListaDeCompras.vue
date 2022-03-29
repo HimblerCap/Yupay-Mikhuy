@@ -408,7 +408,7 @@ export default {
       functionPost(productsToSend,m){
         //Codigo Renato MDAsyGDYliP00B1LQqjAmZSYUc02
         //Codigo Eduardo 4sWLSpmKTZUzOspVmy2vA3L4jgt2
-        let apiUrl = "https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/4sWLSpmKTZUzOspVmy2vA3L4jgt2"
+        let apiUrl = "https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/MDAsyGDYliP00B1LQqjAmZSYUc02"
         fetch(apiUrl , {
              method: "POST",
              body: JSON.stringify(productsToSend[m]),
@@ -431,15 +431,15 @@ export default {
         // let apiUrl = "https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/MDAsyGDYliP00B1LQqjAmZSYUc02"
         // fetch(apiUrl , {
         //        method: "DELETE",
-        //        body: JSON.stringify({name:"limon sutil"}),
+        //        body: JSON.stringify({name:"tocino fino"}),
         //        headers: {
         //            "Content-Type": "application/json;charset=utf-8",
         //        },
         //    })
         //        .then((res) => res.text())
         //        .catch((error) => console.error("Error:", error))
-        //        .then((response) => console.log("Success:", response));
-
+        //        .then((response) => console.log("Success:", response))        
+               
         this.products = []     
         this.dialog = false
       }
