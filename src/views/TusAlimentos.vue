@@ -346,7 +346,7 @@ var items= [
       
     },
     async created() {
-      let response = await axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/MDAsyGDYliP00B1LQqjAmZSYUc02");
+      let response = await axios.get("https://us-central1-yupay-mikhuy.cloudfunctions.net/app/api/v1.0/users/products/4sWLSpmKTZUzOspVmy2vA3L4jgt2");
       this.myproducts = response.data;
       
       let date = new Date();
