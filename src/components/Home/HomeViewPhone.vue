@@ -14,18 +14,18 @@
         <v-row align="center" fluid class="fill-height pt-10">
             <h2 class="pt-5">Dishes you can prepare</h2>
 
-            <v-card
+            <v-card v-if="food === 'Lomo saltado'"
                 class="mx-auto my-3"
                 max-width="300"
             >
-            <v-img
-                height="150"
-                :src="dishes[8].Lomo"
-            >
-            </v-img>
+                <v-img
+                    height="150"
+                    :src="dishes[8].Lomo"
+                >
+                </v-img>
 
-            <v-card-title><span style="color:#FFAD60">{{ food }}</span></v-card-title>
-            <v-card-text>{{ dishes[8].Description }}</v-card-text>
+                <v-card-title><span style="color:#FFAD60">{{ food }}</span></v-card-title>
+                <v-card-text>{{ dishes[8].Description }}</v-card-text>
             </v-card>
         </v-row>
     </v-container>
